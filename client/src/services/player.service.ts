@@ -7,7 +7,7 @@ import { environment } from '../environments/environment';
 @Injectable()
 
 export class PlayerService {
-  
+
   startLoginCompleted: boolean = false;
   BASE_URL: string = `${environment.BASE_URL}/api/spotify`;
 
@@ -44,12 +44,15 @@ export class PlayerService {
       })
   }
   artistCurrent(): Observable<any> {
-    console.log("Entra en el servicio");
+
     return this.http.get(`${this.BASE_URL}/artistCurrent`)
-      .map(res => {
-        this.artistCurrent = res.json();
-        return this.artistCurrent;
-      })
+      .map(res => res.json())
+  }
+
+  playlistCurrent(): Observable<any> {
+
+    return this.http.get(`${this.BASE_URL}/playlistCurrent`)
+      .map(res => res.json())
   }
 
 }

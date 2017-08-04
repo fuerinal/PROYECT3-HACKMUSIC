@@ -2,6 +2,9 @@ const express = require('express');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 
+const CurrentSpotify = require('../models/CurrentSpotify');
+
+
 // Our user model
 const User = require('../models/User');
 const Player = require('../public/scripts/player.js');
@@ -41,11 +44,52 @@ spotifyRoutes.get('/play', (req, res, next) => {
 });
 
 spotifyRoutes.get('/artistCurrent', (req, res, next) => {
-  console.log("ENTRA NEXTSONG -> SERVER SPOTIFY");
+
   Player.artistCurrent();
-  console.log("EN LA RUTA DE ARTIS CURRENT",Player.artistCurrent());
-  res.status(200).json({
-    artist: Player.artistCurrent()
+
+  CurrentSpotify.find({
+
+  }, (err, cs) => {
+    if (err) return handleError(err);
+    if (cs[0] === undefined) {
+
+      console.log("Array Vacío");
+      artistCurrent = "Loading";
+
+    } else {
+      let artistCurrent;
+      var p1 = new Promise(
+        function(resolve, reject) {
+          resolve(artistCurrent = cs[0].currentSong);
+        });
+      // console.log(artistCurrent, "ROUTE CS");
+      // console.log(artistCurrent, "ARTIST CURRENT");
+      p1.then(values => {
+        // console.log(values,"EEEEEEEOooooooo");
+        res.status(200).json({
+          artistCurrent: artistCurrent
+        });
+      }).catch(reason => {
+        console.log(reason);
+      });
+
+    }
   });
+
+  // console.log("EN LA RUTA DE ARTIS CURRENT",Player.artistCurrentCurrent());
+
+});
+
+
+spotifyRoutes.get('/playlistCurrent', (req, res, next) => {
+  console.log("ENTRA playlistCurrent -> SERVER SPOTIFY");
+  Player.playlistCurrent();
+  res.status(200).json({
+    message: 'Success'
+  });
+
+
+  // console.log("EN LA RUTA DE ARTIS CURRENT",Player.artistCurrentCurrent());
+
 });
 module.exports = spotifyRoutes;

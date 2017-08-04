@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 
 // Our user model
 const User = require('../models/User');
-const player = require('../public/scripts/player.js');
+const Player= require('../public/scripts/player.js');
 
 const authRoutes = express.Router();
 
@@ -28,7 +28,7 @@ authRoutes.post('/signup', (req, res, next) => {
     return;
   }
 
-  player.findOne({
+  User.findOne({
     username
   }, '_id').exec().then(foundUser => {
     if (foundUser) {
@@ -57,7 +57,6 @@ authRoutes.post('/signup', (req, res, next) => {
     }).catch(e => res.status(400).json({
       message: 'Something went wrong'
     }));
-
   });
 });
 
@@ -120,7 +119,7 @@ authRoutes.get('/private', ensureLoginOrJsonError(), (req, res, next) => {
 });
 // authRoutes.get('/nextsong', (req, res, next) => {
 //   console.log("NEXTSONG -> SERVER");
-//   // player();
+//   // U();
 //   res.status(200).json({
 //     message: 'Success'
 //   });

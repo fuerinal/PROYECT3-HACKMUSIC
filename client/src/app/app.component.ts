@@ -10,7 +10,9 @@ export class AppComponent {
   artistCurrentString:any;
   title = 'app';
 
-  constructor(private session:SessionService,private player:PlayerService){ }
+  constructor(private session:SessionService,private player:PlayerService){
+    setInterval(() => { this.artistCurrent(); }, 1000);
+  }
 
   logout(){
     this.session.logout().subscribe();
@@ -28,7 +30,12 @@ export class AppComponent {
     this.player.play().subscribe();
   }
   artistCurrent(){
-    this.player.artistCurrent().subscribe((artistCurrent) => this.artistCurrent = artistCurrent);
+    this.player.artistCurrent().subscribe((artistCurrent) => this.artistCurrentString = artistCurrent.artistCurrent);
   }
+  playlistCurrent(){
+      this.player.playlistCurrent().subscribe();
+
+  }
+
 
 }

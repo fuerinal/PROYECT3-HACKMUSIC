@@ -1,13 +1,38 @@
 
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <app-login-form *ngIf="!session.user && session.startLoginCompleted"></app-login-form>
 <div *ngIf="session.user && session.startLoginCompleted">
   <pre>{{ session.user | json }}</pre>
   <button (click)="logout()">Logout</button>
-  <button (click)="nextSong()">nextSong</button>
-  <button (click)="previousSong()">previousSong</button>
-  <button (click)="pause()">pause</button>
-  <button (click)="play()">Start</button>
-  <button (click)="artistCurrent()">Mostrar artista</button>
-  <p class="artistCurrent"> {{ artistCurrent }} </p>
+  <button type="button" class="btn btn-default btn-lg" (click)="nextSong()">
+  <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
+</button>
+<button type="button" class="btn btn-default btn-lg" (click)="previousSong()">
+<span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+</button>
+
+
+  <button type="button" class="btn btn-default btn-lg" (click)="play()">
+  <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+</button>
+  <button type="button" class="btn btn-default btn-lg" (click)="pause()">
+  <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+</button>
+
+<button type="button" class="btn btn-default btn-lg" (click)="playlistCurrent()">
+<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+</button>
+
+  <div class="input-group input-group-lg">
+  <span class="input-group-addon" id="sizing-addon1">Artista Actual :</span>
+  <input type="text" class="form-control" placeholder="{{ artistCurrentString}} " aria-describedby="sizing-addon1">
+</div>
+
 </div>
