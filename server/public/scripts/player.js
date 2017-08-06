@@ -9,11 +9,11 @@ const CurrentSpotifyPlaylist = require('../../models/CurrentSpotifyPlaylist');
 console.log("ENTRA en player PUBLIC");
 var headers = {
   'Accept': 'application/json',
-  'Authorization': 'Bearer BQAsRR2_Og_TwwetSbq8f5l059VII7CvFhDwztInzZ8o4t02DN27gPIymxLkkfzeQoEHMNuVXSIuMQvqLu9RhrCjrl6hW3kzWMnOH8CSvPK7hGgCVVXz0KBuJ9r4GZySh1_r9w_sDff6cl2FV7kguaGuXKnCFlDElBsQSHfWU6A65lKcvbxrEqbvZnZZyNffAJ_RMfvOem2z14YMx6QnKaUDah9Qp1Lm3V13lLZjx1S7w0QXJ9DsbvbsgP1dyxZArKLctRe9qXYMwfMIajC0lVX_wiFa4Q2ydfstHm2QVDnRAfcHlRmTX8XZgE6VX0KOD9yN6w'
+  'Authorization': 'Bearer BQAbUiBw7b6nwNeYJE1dgW-io4HwLHNIDMFLZKaMtOPN8kLyQChkd7GySa4Ag5tDFW4b0SR6OEwe9LW4GqDPSoVL3ZFPtZMfUZbpxd7WgWDIXTsWdX5nA6oJtpMhTPylcoljHBAnPw_N7LQIbrH3UZY130i5HR4fUJydwNeNUUr6qAOS6-ooNLkk0WGw0d7Ozv-Ael5EvF5-TEJPIeMGJa2cbaxgrD1SizTHADCNahDlxAO9_fwVlgywTKW3NdD1jOYEGUPNLAn9lP6czvbPPLew-x0lPa1BrTQrz_RILxn-05B0FWdJiq4iqfX3rbwFcrssxw'
 };
 var headersPause = {
   'Accept': 'application/json',
-  'Authorization': 'Bearer BQAsRR2_Og_TwwetSbq8f5l059VII7CvFhDwztInzZ8o4t02DN27gPIymxLkkfzeQoEHMNuVXSIuMQvqLu9RhrCjrl6hW3kzWMnOH8CSvPK7hGgCVVXz0KBuJ9r4GZySh1_r9w_sDff6cl2FV7kguaGuXKnCFlDElBsQSHfWU6A65lKcvbxrEqbvZnZZyNffAJ_RMfvOem2z14YMx6QnKaUDah9Qp1Lm3V13lLZjx1S7w0QXJ9DsbvbsgP1dyxZArKLctRe9qXYMwfMIajC0lVX_wiFa4Q2ydfstHm2QVDnRAfcHlRmTX8XZgE6VX0KOD9yN6w',
+  'Authorization': 'Bearer BQAbUiBw7b6nwNeYJE1dgW-io4HwLHNIDMFLZKaMtOPN8kLyQChkd7GySa4Ag5tDFW4b0SR6OEwe9LW4GqDPSoVL3ZFPtZMfUZbpxd7WgWDIXTsWdX5nA6oJtpMhTPylcoljHBAnPw_N7LQIbrH3UZY130i5HR4fUJydwNeNUUr6qAOS6-ooNLkk0WGw0d7Ozv-Ael5EvF5-TEJPIeMGJa2cbaxgrD1SizTHADCNahDlxAO9_fwVlgywTKW3NdD1jOYEGUPNLAn9lP6czvbPPLew-x0lPa1BrTQrz_RILxn-05B0FWdJiq4iqfX3rbwFcrssxw',
   'Content-Type': 'application/json'
 };
 nextSong = function() {
@@ -184,31 +184,13 @@ playlistCurrent = function() {
   function callback(error, response, body) {
     if (!error && response.statusCode == 200) {
       let object = JSON.parse(body);
-      let array=[];
+      let arrayName = [];
+      let arrayTrack = [];
 
       for (i = 0; i < object.items.length; i++) {
         console.log(object.items[i].track.name + " - " + object.items[i].track.artists[0].name + " con id ", i);
-        array.push(object.items[i].track.name);
+        arrayName.push(object.items[i].track.name);
       }
-      CurrentSpotifyPlaylist.find(
-        {SongName: { $in: array }},
-
-      // function functionName() {
-      //   //'currentSong': `${object.items[i].track.name}`
-      //   let obj={};
-      //
-      //   for (i = 0; i < object.items.length; i++) {
-      //     console.log(object.items[i].track.name + " - " + object.items[i].track.artists[0].name + " con id ", i);
-      //     obj.SongName=object.items[i].track.name;
-      //   }
-      //
-      //
-      // },
-
-       (err, cs) => {
-        if (err) return handleError(err);
-        if (cs[0] === undefined) {
-          console.log("undeffffffined bien");
 
 
       // for (i = 0; i < object.items.length; i++) {
@@ -219,16 +201,49 @@ playlistCurrent = function() {
       //     idOrder:i
       //   }).save();
       // }
+      console.log(arrayName);
+      CurrentSpotifyPlaylist.find({
+          SongName: {
+            $exists: true,
+            $in: arrayName
+          }
+        }, {
+          SongName: 1,
+          _id: 0
+        },
 
+        (err, cs) => {
+          if (err) return handleError(err);
+          existingSongs = cs.map((e) => {
+            return e.toString().slice(13, e.toString().length - 3);
+          });
+          leftMusics = arrayName.filter((e) => {
+            return existingSongs.indexOf(e) === -1;
+          });
+          console.log(leftMusics);
+        });
+        CurrentSpotifyPlaylist.find({
+            SongName: {
+              $exists: true,
+              $in: arrayName
+            }
+          }, {
+            SongName: 1,
+            _id: 0
+          },
 
-      } else {
-        console.log("Cambios",cs);
-        // console.log("Sin cambios", cs);
-      }
-      });
+          (err, cs) => {
+            if (err) return handleError(err);
+            existingSongs = cs.map((e) => {
+              return e.toString().slice(13, e.toString().length - 3);
+            });
+            leftMusics = arrayName.filter((e) => {
+              return existingSongs.indexOf(e) === -1;
+            });
+            console.log(leftMusics);
+          });
     }
   }
-
   request(options, callback);
 };
 
