@@ -5,17 +5,20 @@ const CurrentSpotify = require('../../models/CurrentSpotify');
 const CurrentSpotifyPlaylist = require('../../models/CurrentSpotifyPlaylist');
 
 
-
+var playlistlenght;
+let e = 1;
 console.log("ENTRA en player PUBLIC");
 var headers = {
   'Accept': 'application/json',
-  'Authorization': 'Bearer BQAbUiBw7b6nwNeYJE1dgW-io4HwLHNIDMFLZKaMtOPN8kLyQChkd7GySa4Ag5tDFW4b0SR6OEwe9LW4GqDPSoVL3ZFPtZMfUZbpxd7WgWDIXTsWdX5nA6oJtpMhTPylcoljHBAnPw_N7LQIbrH3UZY130i5HR4fUJydwNeNUUr6qAOS6-ooNLkk0WGw0d7Ozv-Ael5EvF5-TEJPIeMGJa2cbaxgrD1SizTHADCNahDlxAO9_fwVlgywTKW3NdD1jOYEGUPNLAn9lP6czvbPPLew-x0lPa1BrTQrz_RILxn-05B0FWdJiq4iqfX3rbwFcrssxw'
+  'Authorization': 'Bearer BQAPEnx9-2tMTP-eVMJpi_IMr3AxjL4O9rf2Wjf49N_c1RX8quQ73EWujItEd1yw9hKm6G4xJ11CE9G6i81DIS0acqKzSF00Z7FDMvIIuHdl_ijhPaBNsCHGIN8ptE1WWKT9HyfCluK6NTySDIz0GajiCt0QBzQOXTknto-MLnBj3U8s6qaT8vGsNbd4bCXvCU5ur8XoHp3CxwHXY7XCJa9pIuVon7y-NZeufQvyrW9lTOeAEhIe-JiM99AYFXuhKirAG1C0aEDRgiacm6EKJ92xmu8EXyYjRhKyGQkgEaGt6Pt2LjES_6a8NFnwWyJgURyiGQ'
 };
-var headersPause = {
+var headersOther = {
   'Accept': 'application/json',
-  'Authorization': 'Bearer BQAbUiBw7b6nwNeYJE1dgW-io4HwLHNIDMFLZKaMtOPN8kLyQChkd7GySa4Ag5tDFW4b0SR6OEwe9LW4GqDPSoVL3ZFPtZMfUZbpxd7WgWDIXTsWdX5nA6oJtpMhTPylcoljHBAnPw_N7LQIbrH3UZY130i5HR4fUJydwNeNUUr6qAOS6-ooNLkk0WGw0d7Ozv-Ael5EvF5-TEJPIeMGJa2cbaxgrD1SizTHADCNahDlxAO9_fwVlgywTKW3NdD1jOYEGUPNLAn9lP6czvbPPLew-x0lPa1BrTQrz_RILxn-05B0FWdJiq4iqfX3rbwFcrssxw',
+  'Authorization': 'Bearer BQAPEnx9-2tMTP-eVMJpi_IMr3AxjL4O9rf2Wjf49N_c1RX8quQ73EWujItEd1yw9hKm6G4xJ11CE9G6i81DIS0acqKzSF00Z7FDMvIIuHdl_ijhPaBNsCHGIN8ptE1WWKT9HyfCluK6NTySDIz0GajiCt0QBzQOXTknto-MLnBj3U8s6qaT8vGsNbd4bCXvCU5ur8XoHp3CxwHXY7XCJa9pIuVon7y-NZeufQvyrW9lTOeAEhIe-JiM99AYFXuhKirAG1C0aEDRgiacm6EKJ92xmu8EXyYjRhKyGQkgEaGt6Pt2LjES_6a8NFnwWyJgURyiGQ',
   'Content-Type': 'application/json'
 };
+
+
 nextSong = function() {
   var options = {
     url: 'https://api.spotify.com/v1/me/player/next',
@@ -72,7 +75,7 @@ play = function() {
   var options = {
     url: 'https://api.spotify.com/v1/me/player/play',
     method: 'PUT',
-    headers: headersPause,
+    headers: headersOther,
     body: dataString
   };
 
@@ -86,7 +89,7 @@ play = function() {
 };
 artistCurrent = function() {
 
-  var request = require('request');
+
 
 
   var options = {
@@ -111,11 +114,11 @@ artistCurrent = function() {
         if (err) return handleError(err);
         if (cs[0] === undefined) {
           CurrentSpotify.remove(function(err, removed) {
-            console.log(removed);
+            //console.log(removed);
           });
 
           const newCurrentSpotify = CurrentSpotify({
-            currentSong: object.item.album.artists[0].name
+            currentSong: object.item.name + " of " + object.item.album.artists[0].name
           }).save();
           // console.log("Cambios",cs);
 
@@ -142,7 +145,7 @@ artistCurrent = function() {
     //       artistCurrentString = object.item.album.artists[0].name;
     //       resolve(artistCurrentString);
     //     } else {
-    //       reject(err => console.log('ERROR reject in requestEmotion promise: ', err));
+    //       reject(err => console.log('ERROR reject in promisePlaylist promise: ', err));
     //       console.log('ERROR CALLBACK: ', error);
     //     }
     //   });
@@ -172,81 +175,104 @@ artistCurrent = function() {
 
 playlistCurrent = function() {
 
-  var request = require('request');
+
+
 
 
 
   var options = {
+    method: 'GET',
     url: 'https://api.spotify.com/v1/users/1126614111/playlists/4STLVHeKRhpQkBQ0xkyBL8/tracks',
     headers: headers
   };
 
+  // var p = new Promise(function(resolve, reject) {
+  // p1 = new Promise(function(resolve, reject) {
+
+  let promisePlaylist = new Promise((resolve, reject) => {
+    request(options, function(error, response, body) {
+      if (!error && response.statusCode == 200) {
+        let object = JSON.parse(body);
+        let arrayName = [];
+        let arrayTrack = [];
+        let array;
+        //console.log(object.items[0].track.artists[0].name);
+
+        for (i = 0; i < object.items.length; i++) {
+          //console.log(object.items[i].track.name + " - " + object.items[i].track.artists[0].name + " con id ", i);
+          arrayName.push(object.items[i].track.name + " of " + object.items[i].track.artists[0].name);
+        }
+        playlistlenght = object.items.length;
+
+        resolve(array = arrayName);
+      } else {
+        reject(err => console.log('ERROR reject in promisePlaylist promise: ', err));
+        console.log('ERROR: ', error);
+      }
+    });
+  });
+  return promisePlaylist.then(array => {
+    return array;
+  });
+};
+reorder = function(i) {
+  var request = require('request');
+  console.log("jejejejejejejeje", i);
+
+
+  console.log(e);
+  console.log(playlistlenght);
+
+
+
+  var dataString = `{"range_start":${i},"range_length":1,"insert_before":${e}}`;
+
+  var options = {
+    url: 'https://api.spotify.com/v1/users/1126614111/playlists/4STLVHeKRhpQkBQ0xkyBL8/tracks',
+    method: 'PUT',
+    headers: headersOther,
+    body: dataString
+  };
+  e++;
+  if (e == playlistlenght) {
+    e = 1;
+
+  }
+
   function callback(error, response, body) {
     if (!error && response.statusCode == 200) {
-      let object = JSON.parse(body);
-      let arrayName = [];
-      let arrayTrack = [];
-
-      for (i = 0; i < object.items.length; i++) {
-        console.log(object.items[i].track.name + " - " + object.items[i].track.artists[0].name + " con id ", i);
-        arrayName.push(object.items[i].track.name);
-      }
-
-
-      // for (i = 0; i < object.items.length; i++) {
-      //
-      //   const newCurrentSpotifyPlaylist = CurrentSpotifyPlaylist({
-      //     SongName: object.items[i].track.name,
-      //     ArtistName: object.items[i].track.artists[0].name,
-      //     idOrder:i
-      //   }).save();
-      // }
-      console.log(arrayName);
-      CurrentSpotifyPlaylist.find({
-          SongName: {
-            $exists: true,
-            $in: arrayName
-          }
-        }, {
-          SongName: 1,
-          _id: 0
-        },
-
-        (err, cs) => {
-          if (err) return handleError(err);
-          existingSongs = cs.map((e) => {
-            return e.toString().slice(13, e.toString().length - 3);
-          });
-          leftMusics = arrayName.filter((e) => {
-            return existingSongs.indexOf(e) === -1;
-          });
-          console.log(leftMusics);
-        });
-        CurrentSpotifyPlaylist.find({
-            SongName: {
-              $exists: true,
-              $in: arrayName
-            }
-          }, {
-            SongName: 1,
-            _id: 0
-          },
-
-          (err, cs) => {
-            if (err) return handleError(err);
-            existingSongs = cs.map((e) => {
-              return e.toString().slice(13, e.toString().length - 3);
-            });
-            leftMusics = arrayName.filter((e) => {
-              return existingSongs.indexOf(e) === -1;
-            });
-            console.log(leftMusics);
-          });
+      console.log(body);
     }
   }
-  request(options, callback);
-};
 
+  request(options, callback);
+
+};
+setfirst = function(index) {
+  var request = require('request');
+  console.log("jejejejejejejeje", index);
+
+
+  console.log(index, "setfirst i");
+  var dataString = `{"range_start":${index},"range_length":1,"insert_before":0}`;
+
+  var options = {
+    url: 'https://api.spotify.com/v1/users/1126614111/playlists/4STLVHeKRhpQkBQ0xkyBL8/tracks',
+    method: 'PUT',
+    headers: headersOther,
+    body: dataString
+  };
+
+
+  function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      console.log(body);
+    }
+  }
+
+  request(options, callback);
+
+};
 
 module.exports.nextSong = nextSong;
 module.exports.previousSong = previousSong;
@@ -254,3 +280,5 @@ module.exports.pause = pause;
 module.exports.play = play;
 module.exports.artistCurrent = artistCurrent;
 module.exports.playlistCurrent = playlistCurrent;
+module.exports.reorder = reorder;
+module.exports.setfirst = setfirst;

@@ -47,7 +47,11 @@ export class SessionService {
       .catch(this.handleError);
   }
 
-  logout(): Observable<object> {
+  logout(): Observable<any> {
+    console.log("logout entraaa")
+      console.log(this.options);
+      console.log(this.user);
+
     return this.http.get(`${this.BASE_URL}/logout`, this.options)
       .map(res => {
         res.json();
@@ -70,5 +74,5 @@ export class SessionService {
       .map(res => res.json())
       .catch(this.handleError);
   }
-  
+
 }

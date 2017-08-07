@@ -54,5 +54,22 @@ export class PlayerService {
     return this.http.get(`${this.BASE_URL}/playlistCurrent`)
       .map(res => res.json())
   }
+  reorder(i: any): Observable<any> {
+    console.log("Entra en el servicio");
+    console.log(i, "service");
+    return this.http.post(`${this.BASE_URL}/reorder`, { i })
+      .map(res => {
+        res.json();
+      })
+  }
+  setfirst(index: any): Observable<any> {
+    console.log("Entra en el servicio");
+    console.log(index, "serviceee");
+    return this.http.post(`${this.BASE_URL}/setfirst`, { index })
+      .map(res => {
+        res.json();
+      })
+  }
+
 
 }

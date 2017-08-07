@@ -9,6 +9,7 @@ const layouts      = require('express-ejs-layouts');
 const mongoose     = require('mongoose');
 const session    = require('express-session');
 const passport   = require('passport');
+const MongoStore = require('connect-mongo')(session);
 const cors = require("cors");
 
 const dbUrl = process.env.MONGO_URL;

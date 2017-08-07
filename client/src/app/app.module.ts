@@ -15,7 +15,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
   ],
   providers: [SessionService,PlayerService],
   bootstrap: [AppComponent]

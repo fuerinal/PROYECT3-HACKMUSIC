@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 
 // Our user model
 const User = require('../models/User');
+const Sessions = require('../models/Sessions');
 const Player= require('../public/scripts/player.js');
 
 const authRoutes = express.Router();
@@ -76,6 +77,7 @@ authRoutes.post('/login', (req, res, next) => {
       return;
     }
 
+
     req.login(theUser, (err) => {
       if (err) {
         res.status(500).json({
@@ -83,6 +85,25 @@ authRoutes.post('/login', (req, res, next) => {
         });
         return;
       }
+
+      console.log("req.user",req.user.username);
+
+      Sessions.find({
+        'username': `${req.user.username}`
+      }, (err, cs) => {
+        if (err) return handleError(err);
+        if (cs[0] === undefined) {
+
+
+          const newSessions = Sessions({
+            username:req.user.username,
+          }).save();
+          // console.log("Cambios",cs);
+
+        } else {
+          console.log("Sin cambios", cs);
+        }
+      });
       // We are now logged in (notice req.user)
       res.status(200).json(req.user);
     });
@@ -99,8 +120,16 @@ function ensureLoginOrJsonError(error = "Unauthorized") {
 }
 
 /* Logout route: remember this is a GET! */
-authRoutes.get('/logout', ensureLoginOrJsonError("User is not logged in"), (req, res, next) => {
+authRoutes.get('/logout', (req, res, next) => {
+  console.log("logout");
   req.logout();
+  Sessions.remove(function(err, removed) {
+    //console.log(removed);
+  });
+  Sessions.find({
+    'username': `${req.user.username}`
+  }).remove();
+
   res.status(200).json({
     message: 'Success'
   });

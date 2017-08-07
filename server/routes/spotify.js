@@ -70,7 +70,7 @@ spotifyRoutes.get('/artistCurrent', (req, res, next) => {
           artistCurrent: artistCurrent
         });
       }).catch(reason => {
-        console.log(reason);
+        //console.log(reason);
       });
 
     }
@@ -83,10 +83,40 @@ spotifyRoutes.get('/artistCurrent', (req, res, next) => {
 
 spotifyRoutes.get('/playlistCurrent', (req, res, next) => {
   console.log("ENTRA playlistCurrent -> SERVER SPOTIFY");
-  Player.playlistCurrent();
-  res.status(200).json({
-    message: 'Success'
+  let arrayPlaylist;
+  let promiseRoute = new Promise((resolve, reject) => {
+
+    resolve(arrayPlaylist = Player.playlistCurrent());
   });
+  promiseRoute.then(arrayPlaylist => {
+    //console.log("Artist routeeee", arrayPlaylist);
+    res.status(200).json({
+      arrayPlaylist: arrayPlaylist
+
+    });
+  });
+
+  spotifyRoutes.post('/reorder', (req, res, next) => {
+
+    console.log("ENTRA order -> SERVER SPOTIFY");
+    let m=Player.reorder(req.body.i);
+    console.log(m);
+    res.status(200).json({
+      message: 'Success'
+    });
+  });
+
+  spotifyRoutes.post('/setfirst', (req, res, next) => {
+
+    console.log("ENTRA setfirst -> SERVER SPOTIFY");
+    Player.setfirst(req.body.index);
+    
+    res.status(200).json({
+      message: 'Success'
+    });
+  });
+
+
 
 
   // console.log("EN LA RUTA DE ARTIS CURRENT",Player.artistCurrentCurrent());
