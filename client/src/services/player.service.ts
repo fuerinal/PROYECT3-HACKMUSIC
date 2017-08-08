@@ -63,8 +63,8 @@ export class PlayerService {
       })
   }
   setfirst(index: any): Observable<any> {
-    console.log("Entra en el servicio");
-    console.log(index, "serviceee");
+    // console.log("Entra en el servicio");
+    // console.log(index, "serviceee");
     return this.http.post(`${this.BASE_URL}/setfirst`, { index })
       .map(res => {
         res.json();

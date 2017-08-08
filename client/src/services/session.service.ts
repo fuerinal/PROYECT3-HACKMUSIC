@@ -59,6 +59,15 @@ export class SessionService {
       })
       .catch(this.handleError);
   }
+  destroySession(userSession:any):Observable<any> {
+    console.log("Servicio-->",userSession);
+
+    return this.http.post(`${this.BASE_URL}/destroySession`, {userSession})
+      .map(res => {
+        res.json();
+      })
+
+  }
 
   isLoggedIn(): Observable<User> {
     return this.http.get(`${this.BASE_URL}/loggedin`, this.options)

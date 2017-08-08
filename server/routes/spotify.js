@@ -8,11 +8,22 @@ const CurrentSpotify = require('../models/CurrentSpotify');
 // Our user model
 const User = require('../models/User');
 const Player = require('../public/scripts/player.js');
+const Token = require('../public/scripts/refreshtoken.js');
 const spotifyRoutes = express.Router();
 
 spotifyRoutes.get('/nextSong', (req, res, next) => {
   console.log("ENTRA NEXTSONG -> SERVER SPOTIFY");
   Player.nextSong();
+  res.status(200).json({
+    message: 'Success'
+  });
+});
+
+spotifyRoutes.post('/refreshtoken', (req, res, next) => {
+  console.log("REFRESH TOKEN-> SERVER SPOTIFY");
+  console.log(req.body);
+  console.log(res.access_token);
+
   res.status(200).json({
     message: 'Success'
   });
@@ -38,6 +49,7 @@ spotifyRoutes.get('/pause', (req, res, next) => {
 spotifyRoutes.get('/play', (req, res, next) => {
   console.log("ENTRA NEXTSONG -> SERVER SPOTIFY");
   Player.play();
+  Token.refreshtoken();
   res.status(200).json({
     message: 'Success'
   });
@@ -99,7 +111,7 @@ spotifyRoutes.get('/playlistCurrent', (req, res, next) => {
   spotifyRoutes.post('/reorder', (req, res, next) => {
 
     console.log("ENTRA order -> SERVER SPOTIFY");
-    let m=Player.reorder(req.body.i);
+    let m = Player.reorder(req.body.i);
     console.log(m);
     res.status(200).json({
       message: 'Success'
@@ -110,7 +122,6 @@ spotifyRoutes.get('/playlistCurrent', (req, res, next) => {
 
     console.log("ENTRA setfirst -> SERVER SPOTIFY");
     Player.setfirst(req.body.index);
-    
     res.status(200).json({
       message: 'Success'
     });

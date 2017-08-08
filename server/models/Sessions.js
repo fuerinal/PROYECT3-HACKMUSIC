@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
-const sessionsSchema  = new Schema({
-  username: String,
+const sessionsSchema = new Schema({
+  username: String
 }, {
   timestamps: {
     createdAt: 'created_at',
@@ -10,5 +10,5 @@ const sessionsSchema  = new Schema({
   }
 });
 
-const Sessions = mongoose.model('Sessions', sessionsSchema );
-module.exports = Sessions;
+const Session = mongoose.model('Session', sessionsSchema);
+module.exports = Session;

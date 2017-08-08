@@ -59,6 +59,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   cookie : { httpOnly: true, maxAge: 2419200000 }
+
 }));
 
 const passportLocalStrategy = require('./passport/local');

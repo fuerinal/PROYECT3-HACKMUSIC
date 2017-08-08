@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 // Our user model
 const User = require('../models/User');
 const Sessions = require('../models/Sessions');
-const Player= require('../public/scripts/player.js');
+const Player = require('../public/scripts/player.js');
 
 const authRoutes = express.Router();
 
@@ -86,7 +86,7 @@ authRoutes.post('/login', (req, res, next) => {
         return;
       }
 
-      console.log("req.user",req.user.username);
+      console.log("req.user", req.user.username);
 
       Sessions.find({
         'username': `${req.user.username}`
@@ -94,9 +94,8 @@ authRoutes.post('/login', (req, res, next) => {
         if (err) return handleError(err);
         if (cs[0] === undefined) {
 
-
           const newSessions = Sessions({
-            username:req.user.username,
+            username: req.user.username,
           }).save();
           // console.log("Cambios",cs);
 
@@ -104,7 +103,7 @@ authRoutes.post('/login', (req, res, next) => {
           console.log("Sin cambios", cs);
         }
       });
-      // We are now logged in (notice req.user)
+      //We are now logged in (notice req.user)
       res.status(200).json(req.user);
     });
   })(req, res, next);
@@ -120,19 +119,45 @@ function ensureLoginOrJsonError(error = "Unauthorized") {
 }
 
 /* Logout route: remember this is a GET! */
-authRoutes.get('/logout', (req, res, next) => {
+authRoutes.get('/logout', ensureLoginOrJsonError("User is not logged in"), (req, res, next) => {
   console.log("logout");
   req.logout();
-  Sessions.remove(function(err, removed) {
-    //console.log(removed);
-  });
-  Sessions.find({
-    'username': `${req.user.username}`
-  }).remove();
+
+  // Sessions.find({
+  //   'username': `${req.user.username}`
+  // });
+
+  // Sessions.findOneAndDelete({'username': `${req.user.username}`}, (err, session) => {
+  //   if (err) {
+  //     console.log(err);
+  //   }
+  //
+  // });
 
   res.status(200).json({
     message: 'Success'
   });
+
+});
+authRoutes.post('/destroySession', (req, res, next) => {
+  console.log("DESTROYYY SESSIONNNNN");
+
+console.log(req.body.userSession.username);
+  Sessions.find({
+    'username': `${req.body.userSession.username}`
+  }).remove();
+
+  // Sessions.findOneAndDelete({'username': `${req.user.username}`}, (err, session) => {
+  //   if (err) {
+  //     console.log(err);
+  //   }
+  //
+  // });
+
+  res.status(200).json({
+    message: 'Success'
+  });
+
 });
 
 /* Check if user is logged in and returns the user or shows error as JSON instead*/

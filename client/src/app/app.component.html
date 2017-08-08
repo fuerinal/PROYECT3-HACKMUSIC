@@ -8,11 +8,14 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <app-login-form *ngIf="!session.user && session.startLoginCompleted"></app-login-form>
+
+
 <div *ngIf="session.user && session.startLoginCompleted">
   <!-- <pre>{{ session.user | json }}</pre> -->
-  <button (click)="logout()">Logout</button>
 
-
+  <button (click)="logout()" (click)="destroySession(session.user)">Logout</button>
+<div class="body">
+<div class="buttons">
   <button type="button" class="btn btn-default btn-lg" (click)="nextSong()">
   <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
 </button>
@@ -31,35 +34,29 @@
   <button type="button" class="btn btn-default btn-lg" (click)="playlistCurrent()">
 <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 </button>
-  <button type="button" class="btn btn-default btn-lg" (click)="index()">
-<span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
-</button>
 
-  <div class="input-group input-group-lg">
+</div>
+
+  <div class="input-group input-group-lg" >
     <span class="input-group-addon" id="sizing-addon1">Canción Actual :</span>
     <input type="text" class="form-control" placeholder="{{ artistCurrentString}} " aria-describedby="sizing-addon1">
   </div>
-
-
-
-  <div class='playlist-button'>
+  <div class="buttons">
+  <div *ngIf="!coldown"  class='playlist-button'>
     <h1>Select next</h1>
     <div *ngFor="let song of playlist; let i = index" [attr.data-index]="i">
-
-
-      <!-- <div *ngIf="{{ artistCurrentString}}=={{list}}"> -->
-
-      <button type="button" class="btn btn-default" ng-show="toggle" style="background-color: gray; margin:10px;" (click)="reorder(i)" ng-click="toggle=!toggle">{{song}}</button>
-
-      <!-- <div *ngIf="{{ artistCurrentString}}={{list}}" style="background-color: blue;" > {{list}}</div> -->
-
-      <!-- </div> -->
+        <button  type="button" [ngClass]="{'hide': i==0, 'btn-default':i!=0}"   class="btn" ng-show="toggle" style="background-color: gray; margin:10px;" (click)="reorder(i)" (click)="timer()"  ng-click="toggle=!toggle">{{song}}</button>
 
     </div>
   </div>
+  <h2 *ngIf="coldown">Coldown {{cont}}</h2>
   <div class='playlist'>
     <h1>Playlist</h1>
     <div *ngFor="let song of playlist; let i = index" [attr.data-index]="i">
-      <div style="background-color: gray; padding:10px; margin:10px; display:block; margin-right:auto; color: white">{{i}} {{song}}</div>
+
+      <div *ngIf="i==0" style="background-color: gray; padding:10px; margin:10px; display:block; margin-right:auto; color: white"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> {{song}}</div>
+      <div *ngIf="i!==0" style="background-color: gray; padding:10px; margin:10px; display:block; margin-right:auto; color: white">{{i}} {{song}}</div>
     </div>
+  </div>
+  </div>
   </div>

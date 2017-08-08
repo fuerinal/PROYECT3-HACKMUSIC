@@ -10,11 +10,11 @@ let e = 1;
 console.log("ENTRA en player PUBLIC");
 var headers = {
   'Accept': 'application/json',
-  'Authorization': 'Bearer BQAPEnx9-2tMTP-eVMJpi_IMr3AxjL4O9rf2Wjf49N_c1RX8quQ73EWujItEd1yw9hKm6G4xJ11CE9G6i81DIS0acqKzSF00Z7FDMvIIuHdl_ijhPaBNsCHGIN8ptE1WWKT9HyfCluK6NTySDIz0GajiCt0QBzQOXTknto-MLnBj3U8s6qaT8vGsNbd4bCXvCU5ur8XoHp3CxwHXY7XCJa9pIuVon7y-NZeufQvyrW9lTOeAEhIe-JiM99AYFXuhKirAG1C0aEDRgiacm6EKJ92xmu8EXyYjRhKyGQkgEaGt6Pt2LjES_6a8NFnwWyJgURyiGQ'
+  'Authorization': 'Bearer BQD4gA0jaKv15xcg3anp7MNoqTb5B2ySSaHwUrXLp9r_pUG3WQsijm5f3jWc6M0XS7HiAg4BQPA-Ku5OWxSev3gVyGQ-MWYoA6PWsD26fkwGYk-mdrbinllXBAZvsnvoQ_woUvPiwpljWBGsP6xiiaFsbmLO7iZ4BfPjnzQ36GnGrO-P87klWlUyFW5UHE-pg1dcmKs9yPoCN8YTC2fgk6sLxgNZzh7x8EPkwchzfdOiE6HZ99ccZID-2znfKD6d_1re66SrMxaJ0UirjVj9Xsib8aEkrxNuiza-8X8Y0d8QKi7NYxCbVrB9VTEgoYGpVUgS1Q'
 };
 var headersOther = {
   'Accept': 'application/json',
-  'Authorization': 'Bearer BQAPEnx9-2tMTP-eVMJpi_IMr3AxjL4O9rf2Wjf49N_c1RX8quQ73EWujItEd1yw9hKm6G4xJ11CE9G6i81DIS0acqKzSF00Z7FDMvIIuHdl_ijhPaBNsCHGIN8ptE1WWKT9HyfCluK6NTySDIz0GajiCt0QBzQOXTknto-MLnBj3U8s6qaT8vGsNbd4bCXvCU5ur8XoHp3CxwHXY7XCJa9pIuVon7y-NZeufQvyrW9lTOeAEhIe-JiM99AYFXuhKirAG1C0aEDRgiacm6EKJ92xmu8EXyYjRhKyGQkgEaGt6Pt2LjES_6a8NFnwWyJgURyiGQ',
+  'Authorization': 'Bearer BQD4gA0jaKv15xcg3anp7MNoqTb5B2ySSaHwUrXLp9r_pUG3WQsijm5f3jWc6M0XS7HiAg4BQPA-Ku5OWxSev3gVyGQ-MWYoA6PWsD26fkwGYk-mdrbinllXBAZvsnvoQ_woUvPiwpljWBGsP6xiiaFsbmLO7iZ4BfPjnzQ36GnGrO-P87klWlUyFW5UHE-pg1dcmKs9yPoCN8YTC2fgk6sLxgNZzh7x8EPkwchzfdOiE6HZ99ccZID-2znfKD6d_1re66SrMxaJ0UirjVj9Xsib8aEkrxNuiza-8X8Y0d8QKi7NYxCbVrB9VTEgoYGpVUgS1Q',
   'Content-Type': 'application/json'
 };
 
@@ -70,13 +70,10 @@ pause = function() {
 };
 play = function() {
 
-  var dataString = '{"context_uri":"spotify:album:5ht7ItJgpBH7W6vJ5BqpPr","offset":{"position":5}}';
-
   var options = {
     url: 'https://api.spotify.com/v1/me/player/play',
     method: 'PUT',
-    headers: headersOther,
-    body: dataString
+    headers: headersOther
   };
 
   function callback(error, response, body) {
@@ -273,6 +270,7 @@ setfirst = function(index) {
   request(options, callback);
 
 };
+
 
 module.exports.nextSong = nextSong;
 module.exports.previousSong = previousSong;
