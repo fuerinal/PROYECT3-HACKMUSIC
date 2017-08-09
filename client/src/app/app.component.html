@@ -14,49 +14,110 @@
   <!-- <pre>{{ session.user | json }}</pre> -->
 
   <button (click)="logout()" (click)="destroySession(session.user)">Logout</button>
-<div class="body">
-<div class="buttons">
-  <button type="button" class="btn btn-default btn-lg" (click)="nextSong()">
-  <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
+  <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+  <div class="wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <header id="header">
+
+            <div class="slider">
+              <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                  <div class="item">
+                    <img src="http://placehold.it/1200x400/20BFA9/ffffff&text=CLEAN">
+                  </div>
+                  <div class="item active">
+                    <img src="https://ugc.kn3.net/i/origin/http://notihoy.com/site/wp-content/uploads/2015/04/1384.jpg ">
+                  </div>
+
+                </div>
+
+                <!-- Controls -->
+
+            </div>
+            </div>
+            <!--slider-->
+            <nav class="navbar navbar-default">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainNav">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                          </button>
+                <a class="navbar-brand" href="#"><img class="img-responsive" src="{{playlistdataArray.arrayPlaylistdata[1]}} "></a>
+                <span class="site-name"><b>{{ playlistdataArray.arrayPlaylistdata[0] }}</b></span>
+                <span class="site-description">Playlist</span>
+              </div>
+
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="nav main-menu navbar-nav">
+                  <li><a href="#"><i class="fa fa-home"></i> HOME</a></li>
+
+                </ul>
+
+                <ul class="nav  navbar-nav navbar-right">
+                  <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                  <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                  <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                </ul>
+              </div>
+              <!-- /.navbar-collapse -->
+            </nav>
+
+          </header>
+          <!--/#HEADER-->
+
+          <div class="body">
+            <div class="buttons">
+
+              <button type="button" class="btn btn-default btn-lg" (click)="previousSong()">
+<span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
 </button>
-  <button type="button" class="btn btn-default btn-lg" (click)="previousSong()">
+
+
+              <button type="button" class="btn btn-default btn-lg" (click)="play()">
+  <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+</button>
+              <button type="button" class="btn btn-default btn-lg" (click)="pause()">
+  <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+</button>
+<button type="button" class="btn btn-default btn-lg" (click)="nextSong()">
+<span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+</button>
+<button type="button" class="btn btn-default btn-lg" (click)="playlistdata()">
 <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
 </button>
 
 
-  <button type="button" class="btn btn-default btn-lg" (click)="play()">
-  <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
-</button>
-  <button type="button" class="btn btn-default btn-lg" (click)="pause()">
-  <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
-</button>
 
-  <button type="button" class="btn btn-default btn-lg" (click)="playlistCurrent()">
-<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-</button>
+            </div>
 
-</div>
+            <div class="input-group input-group-lg">
+              <span class="input-group-addon" id="sizing-addon1">Canción Actual :</span>
+              <input type="text" class="form-control" placeholder="{{ artistCurrentString}} " aria-describedby="sizing-addon1">
+            </div>
+            <div class="buttons">
+              <div *ngIf="!coldown" class='playlist-button'>
+                <h1>Select next</h1>
+                <div *ngFor="let song of playlist; let i = index" [attr.data-index]="i">
+                  <button *ngIf="i!==0" type="button" [ngClass]="{'hide': i<=contSongs, 'btn-default':i!=0 }" class="btn" ng-show="toggle" style="background-color: gray; margin:10px;" (click)="reorder(i)" (click)="timer()" ng-click="toggle=!toggle">{{song}}</button>
 
-  <div class="input-group input-group-lg" >
-    <span class="input-group-addon" id="sizing-addon1">Canción Actual :</span>
-    <input type="text" class="form-control" placeholder="{{ artistCurrentString}} " aria-describedby="sizing-addon1">
-  </div>
-  <div class="buttons">
-  <div *ngIf="!coldown"  class='playlist-button'>
-    <h1>Select next</h1>
-    <div *ngFor="let song of playlist; let i = index" [attr.data-index]="i">
-        <button  type="button" [ngClass]="{'hide': i==0, 'btn-default':i!=0}"   class="btn" ng-show="toggle" style="background-color: gray; margin:10px;" (click)="reorder(i)" (click)="timer()"  ng-click="toggle=!toggle">{{song}}</button>
-
-    </div>
-  </div>
-  <h2 *ngIf="coldown">Coldown {{cont}}</h2>
-  <div class='playlist'>
-    <h1>Playlist</h1>
-    <div *ngFor="let song of playlist; let i = index" [attr.data-index]="i">
-
-      <div *ngIf="i==0" style="background-color: gray; padding:10px; margin:10px; display:block; margin-right:auto; color: white"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> {{song}}</div>
-      <div *ngIf="i!==0" style="background-color: gray; padding:10px; margin:10px; display:block; margin-right:auto; color: white">{{i}} {{song}}</div>
-    </div>
-  </div>
-  </div>
-  </div>
+                </div>
+              </div>
+              <h2 *ngIf="coldown">Wait the next turn {{cont}}</h2>
+              <div class='playlist'>
+                <h1>Playlist</h1>
+                <div *ngFor="let song of playlist; let i = index" [attr.data-index]="i">
+                  <div *ngIf="i==0" class="song-playing" ><span class="glyphicon glyphicon-play" aria-hidden="true"></span> {{song}}</div>
+                  <div *ngIf="i!==0" [ngClass]="{ 'song-lock':i<=contSongs, 'song-unlock':i>contSongs }" >{{i}} {{song}} </div>
+                  <div *ngIf="i>contsongs" style="background-color: white; padding:10px; margin:10px; display:block; margin-right:auto; color: white">{{i}} {{song}}</div>
+                </div>
+              </div>
+            </div>
+          </div>

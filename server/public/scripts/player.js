@@ -10,11 +10,11 @@ let e = 1;
 console.log("ENTRA en player PUBLIC");
 var headers = {
   'Accept': 'application/json',
-  'Authorization': 'Bearer BQD4gA0jaKv15xcg3anp7MNoqTb5B2ySSaHwUrXLp9r_pUG3WQsijm5f3jWc6M0XS7HiAg4BQPA-Ku5OWxSev3gVyGQ-MWYoA6PWsD26fkwGYk-mdrbinllXBAZvsnvoQ_woUvPiwpljWBGsP6xiiaFsbmLO7iZ4BfPjnzQ36GnGrO-P87klWlUyFW5UHE-pg1dcmKs9yPoCN8YTC2fgk6sLxgNZzh7x8EPkwchzfdOiE6HZ99ccZID-2znfKD6d_1re66SrMxaJ0UirjVj9Xsib8aEkrxNuiza-8X8Y0d8QKi7NYxCbVrB9VTEgoYGpVUgS1Q'
+  'Authorization': 'Bearer BQCf93Fhx6DB8LmmzVSyUnzZcdd09zZ25rbvEoBfxRPPG1NElE1vWhmOvC7dkPAZUGZKck3L7SfGEJGvjyYF-WeafjpSzwDbK0Zo9BLnWqrckqgVyrVRYeda_A2HlE0UwGO1HHlNbwthpK5ebg_VhH7AArTqZXphz3R1pOxuwLzRTBippC0bUVO6DtMA1XkEA8fm7fjUPUbLvCxIaxQ5EevCLBcutS5LyizLbcLl0PhTvo-xOTAYaWPJ9GFu57rpFRV_sst7ozvMVy6bBcY4dehBaEJGk6fEafvWvV13ji17EY0O4_elpmmH3ERRE5u9BIFzQA'
 };
 var headersOther = {
   'Accept': 'application/json',
-  'Authorization': 'Bearer BQD4gA0jaKv15xcg3anp7MNoqTb5B2ySSaHwUrXLp9r_pUG3WQsijm5f3jWc6M0XS7HiAg4BQPA-Ku5OWxSev3gVyGQ-MWYoA6PWsD26fkwGYk-mdrbinllXBAZvsnvoQ_woUvPiwpljWBGsP6xiiaFsbmLO7iZ4BfPjnzQ36GnGrO-P87klWlUyFW5UHE-pg1dcmKs9yPoCN8YTC2fgk6sLxgNZzh7x8EPkwchzfdOiE6HZ99ccZID-2znfKD6d_1re66SrMxaJ0UirjVj9Xsib8aEkrxNuiza-8X8Y0d8QKi7NYxCbVrB9VTEgoYGpVUgS1Q',
+  'Authorization': 'Bearer BQCf93Fhx6DB8LmmzVSyUnzZcdd09zZ25rbvEoBfxRPPG1NElE1vWhmOvC7dkPAZUGZKck3L7SfGEJGvjyYF-WeafjpSzwDbK0Zo9BLnWqrckqgVyrVRYeda_A2HlE0UwGO1HHlNbwthpK5ebg_VhH7AArTqZXphz3R1pOxuwLzRTBippC0bUVO6DtMA1XkEA8fm7fjUPUbLvCxIaxQ5EevCLBcutS5LyizLbcLl0PhTvo-xOTAYaWPJ9GFu57rpFRV_sst7ozvMVy6bBcY4dehBaEJGk6fEafvWvV13ji17EY0O4_elpmmH3ERRE5u9BIFzQA',
   'Content-Type': 'application/json'
 };
 
@@ -130,62 +130,19 @@ artistCurrent = function() {
       // console.log(object.item.album.artists[0].name);
 
     }
-    //   }
-    // });
 
-    // var p1 = new Promise((resolve, reject) => {
-    //   request(options, function(error, response, body) {
-    //     var artistCurrentString;
-    //     if (!error && response.statusCode == 200) {
-    //       let object = JSON.parse(body);
-    //       console.log("OBJETO", object.item.album.artists[0].name);
-    //       artistCurrentString = object.item.album.artists[0].name;
-    //       resolve(artistCurrentString);
-    //     } else {
-    //       reject(err => console.log('ERROR reject in promisePlaylist promise: ', err));
-    //       console.log('ERROR CALLBACK: ', error);
-    //     }
-    //   });
-    // });
-    //
-    // return p1.then(function(artistCurrentString) {
-    //   return artistCurrentString;
-    // }, function(err) {
-    //   return console.log(err, "RETURN"); // Error: "It broke"
-    // });
-
-    // p.then(function() {
-
-
-
-    // p1.then(function(value) {
-    //     return artistCurrentString;
-    //     // console.log("Funciona? Player", this.artistCurrentString);
-    //   }
-    // 	/* do something with the result */
-    // }).catch(function() {
-    // 	/* error :( */
-    // return artistCurrentString;
   }
   request(options, callback);
 };
 
 playlistCurrent = function() {
-
-
-
-
-
-
   var options = {
     method: 'GET',
     url: 'https://api.spotify.com/v1/users/1126614111/playlists/4STLVHeKRhpQkBQ0xkyBL8/tracks',
     headers: headers
   };
-
   // var p = new Promise(function(resolve, reject) {
   // p1 = new Promise(function(resolve, reject) {
-
   let promisePlaylist = new Promise((resolve, reject) => {
     request(options, function(error, response, body) {
       if (!error && response.statusCode == 200) {
@@ -212,9 +169,42 @@ playlistCurrent = function() {
     return array;
   });
 };
+playlistdata = function() {
+  var options = {
+    method: 'GET',
+    url: 'https://api.spotify.com/v1/users/1126614111/playlists/4STLVHeKRhpQkBQ0xkyBL8',
+    headers: headers
+  };
+
+  // var p = new Promise(function(resolve, reject) {
+  // p1 = new Promise(function(resolve, reject) {
+
+  let promisePlaylistdata = new Promise((resolve, reject) => {
+    request(options, function(error, response, body) {
+      if (!error && response.statusCode == 200) {
+        let object = JSON.parse(body);
+        let array;
+        let arraytemp = [];
+        arraytemp.push(object.name);
+        arraytemp.push(object.images[0].url);
+
+        //console.log(object.items[0].track.artists[0].name);
+
+        resolve(array = arraytemp);
+      } else {
+        reject(err => console.log('ERROR reject in promisePlaylistdata promise: ', err));
+        console.log('ERROR: ', error);
+      }
+    });
+  });
+  return promisePlaylistdata.then(array => {
+    return array;
+  });
+};
 reorder = function(i) {
   var request = require('request');
   console.log("jejejejejejejeje", i);
+
 
 
   console.log(e);
@@ -243,13 +233,14 @@ reorder = function(i) {
   }
 
   request(options, callback);
+  return e;
 
 };
 setfirst = function(index) {
   var request = require('request');
   console.log("jejejejejejejeje", index);
 
-
+  console.log("->>>>>>>>>>>>>>",e);
   console.log(index, "setfirst i");
   var dataString = `{"range_start":${index},"range_length":1,"insert_before":0}`;
 
@@ -268,7 +259,7 @@ setfirst = function(index) {
   }
 
   request(options, callback);
-
+return e;
 };
 
 
@@ -278,5 +269,6 @@ module.exports.pause = pause;
 module.exports.play = play;
 module.exports.artistCurrent = artistCurrent;
 module.exports.playlistCurrent = playlistCurrent;
+module.exports.playlistdata = playlistdata;
 module.exports.reorder = reorder;
 module.exports.setfirst = setfirst;

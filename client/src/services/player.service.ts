@@ -10,6 +10,7 @@ export class PlayerService {
 
   startLoginCompleted: boolean = false;
   BASE_URL: string = `${environment.BASE_URL}/api/spotify`;
+  cont:any;
 
   constructor(private http: Http) {
 
@@ -54,12 +55,19 @@ export class PlayerService {
     return this.http.get(`${this.BASE_URL}/playlistCurrent`)
       .map(res => res.json())
   }
+  playlistdata(): Observable<any> {
+
+    return this.http.get(`${this.BASE_URL}/playlistdata`)
+      .map(res => res.json())
+  }
   reorder(i: any): Observable<any> {
     console.log("Entra en el servicio");
     console.log(i, "service");
     return this.http.post(`${this.BASE_URL}/reorder`, { i })
       .map(res => {
-        res.json();
+
+        this.cont=res.json();
+        return this.cont
       })
   }
   setfirst(index: any): Observable<any> {
@@ -68,8 +76,8 @@ export class PlayerService {
     return this.http.post(`${this.BASE_URL}/setfirst`, { index })
       .map(res => {
         res.json();
+        this.cont=res.json();
+        return this.cont
       })
   }
-
-
 }

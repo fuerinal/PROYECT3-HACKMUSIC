@@ -107,30 +107,46 @@ spotifyRoutes.get('/playlistCurrent', (req, res, next) => {
 
     });
   });
-
-  spotifyRoutes.post('/reorder', (req, res, next) => {
-
-    console.log("ENTRA order -> SERVER SPOTIFY");
-    let m = Player.reorder(req.body.i);
-    console.log(m);
-    res.status(200).json({
-      message: 'Success'
-    });
-  });
-
-  spotifyRoutes.post('/setfirst', (req, res, next) => {
-
-    console.log("ENTRA setfirst -> SERVER SPOTIFY");
-    Player.setfirst(req.body.index);
-    res.status(200).json({
-      message: 'Success'
-    });
-  });
-
-
-
-
-  // console.log("EN LA RUTA DE ARTIS CURRENT",Player.artistCurrentCurrent());
-
 });
+spotifyRoutes.get('/playlistdata', (req, res, next) => {
+  console.log("ENTRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+  let arrayPlaylistdata;
+  let promiseRoute = new Promise((resolve, reject) => {
+
+    resolve(arrayPlaylistdata = Player.playlistdata());
+  });
+  promiseRoute.then(arrayPlaylistdata => {
+    //console.log("Artist routeeee", arrayPlaylist);
+    res.status(200).json({
+      arrayPlaylistdata: arrayPlaylistdata
+
+    });
+  });
+});
+
+spotifyRoutes.post('/reorder', (req, res, next) => {
+
+  console.log("ENTRA order -> SERVER SPOTIFY");
+  let m = Player.reorder(req.body.i);
+  console.log("INDICEEEEEEEEEEEEEE",m);
+  res.status(200).json({
+    index: m
+  });
+});
+
+spotifyRoutes.post('/setfirst', (req, res, next) => {
+
+  console.log("ENTRA setfirst -> SERVER SPOTIFY");
+  let m =Player.setfirst(req.body.index);
+  res.status(200).json({
+    index: m
+  });
+});
+
+
+
+
+// console.log("EN LA RUTA DE ARTIS CURRENT",Player.artistCurrentCurrent());
+
+
 module.exports = spotifyRoutes;
