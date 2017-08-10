@@ -6,18 +6,25 @@ import { PlayerService } from '../services/player.service';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
 import { LoginFormComponent } from './login-form/login-form.component';
+import { HomeComponent } from './home/home.component';
+import { routes } from './routes';
+import { RouterModule } from '@angular/router';
+import { EstablishmentsComponent } from './establishments/establishments.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    HomeComponent,
+    EstablishmentsComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    RouterModule.forRoot(routes),
   ],
   providers: [SessionService,PlayerService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

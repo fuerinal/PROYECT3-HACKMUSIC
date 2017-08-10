@@ -9,10 +9,13 @@ export class LoginFormComponent implements OnInit {
   error: string;
   username:string;
   password:string;
+  bool:boolean=true;
   constructor(private session: SessionService) { }
   ngOnInit() {
   }
-
+toggle(){
+  this.bool = this.bool ? false : true;
+}
   login() {
     this.session.login(this.username,this.password)
       .subscribe(

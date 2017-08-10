@@ -1,0 +1,7 @@
+.img-thumbnail{
+  width: 200px;
+}
+.btn-responsive{
+  display: flex;
+  justify-content: center;
+}

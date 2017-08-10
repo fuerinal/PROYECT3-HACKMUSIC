@@ -60,6 +60,11 @@ export class PlayerService {
     return this.http.get(`${this.BASE_URL}/playlistdata`)
       .map(res => res.json())
   }
+  refresh(): Observable<any> {
+
+    return this.http.get(`${this.BASE_URL}/refresh`)
+      .map(res => res.json())
+  }
   reorder(i: any): Observable<any> {
     console.log("Entra en el servicio");
     console.log(i, "service");

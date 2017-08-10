@@ -1,0 +1,16 @@
+
+
+
+
+<div class="row">
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img class="img-thumbnail" *ngIf="playlistdataArray.arrayPlaylistdata[1]" src="{{playlistdataArray.arrayPlaylistdata[1]}}" alt="" >
+      <div class="caption">
+        <h3  *ngIf="playlistdataArray.arrayPlaylistdata[2]" >{{playlistdataArray.arrayPlaylistdata[2]}}</h3><br>
+
+        <p><a [routerLink]="['home']" class="btn btn-primary btn-responsive" role="button">Go</a></p>
+      </div>
+    </div>
+  </div>
+</div>

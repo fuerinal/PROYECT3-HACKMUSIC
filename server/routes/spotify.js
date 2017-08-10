@@ -3,7 +3,7 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 
 const CurrentSpotify = require('../models/CurrentSpotify');
-
+let m;
 
 // Our user model
 const User = require('../models/User');
@@ -127,8 +127,17 @@ spotifyRoutes.get('/playlistdata', (req, res, next) => {
 spotifyRoutes.post('/reorder', (req, res, next) => {
 
   console.log("ENTRA order -> SERVER SPOTIFY");
-  let m = Player.reorder(req.body.i);
+   m = Player.reorder(req.body.i);
   console.log("INDICEEEEEEEEEEEEEE",m);
+  res.status(200).json({
+    index: m
+  });
+});
+
+spotifyRoutes.get('/refresh', (req, res, next) => {
+
+  console.log("ENTRA GET -> SERVER SPOTIFY");
+  console.log("INDICEEEEEdsadadasdasdascfDSfbfxfvhxxfv",m);
   res.status(200).json({
     index: m
   });
@@ -137,7 +146,7 @@ spotifyRoutes.post('/reorder', (req, res, next) => {
 spotifyRoutes.post('/setfirst', (req, res, next) => {
 
   console.log("ENTRA setfirst -> SERVER SPOTIFY");
-  let m =Player.setfirst(req.body.index);
+   m =Player.setfirst(req.body.index);
   res.status(200).json({
     index: m
   });
