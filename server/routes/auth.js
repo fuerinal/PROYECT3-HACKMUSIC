@@ -108,9 +108,6 @@ authRoutes.post('/login', (req, res, next) => {
     });
   })(req, res, next);
 });
-
-
-
 /* User authenticated Middleware: Returns JSON ERROR */
 function ensureLoginOrJsonError(error = "Unauthorized") {
   return (req, res, next) => req.isAuthenticated() ? next() : res.status(403).json({
