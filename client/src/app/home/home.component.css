@@ -1,5 +1,3 @@
-
-
 html {}
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,400,700);
@@ -12,7 +10,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .container {}
+.cont{
+  position: relative;
+  color: red;
+  font-size: 60px;
+  margin-top: 0px;
+  left:46%;
+  right: 50%;
+  margin-top: 0px;
+}
+.display-2{
+  display: flex;
+  justify-content: center;
+  position: relative;
+  right:2%;
 
+
+}
 .wrapper {}
 
 #header {
@@ -68,9 +82,35 @@ h1, h2, h3, h4, h5, h6 {
   margin-left: 15px;
 }
 
+.well-lg {
+  width: auto;
+
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+    left: 70%;
+}
+
 .main-menu {
   position: absolute;
   left: 190px;
+}
+
+.well-lg {
+  position:relative;
+  border: 1px;
+  border-style: solid;
+  border-color: black;
+  font-size: 20px;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  top:20px;
+  left:22%;
+  right: 20%;
+
 }
 
 .slider, .carousel {
@@ -142,7 +182,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .playlist-button {
   position: relative;
-  left: 100px;
+  left:  20%;
+  right: 20%;
   margin-top: 50px;
   margin-right: 50px;
   display: block;
@@ -154,7 +195,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .playlist {
   position: relative;
-  left:100px;
+  left: 20%;
+  right: 20%;
   margin-top: 50px;
   display: block;
   justify-content: center;
@@ -171,21 +213,23 @@ h1, h2, h3, h4, h5, h6 {
   margin-right: auto;
   color: white
 }
-.button-playlist{
+
+.button-playlist {
   display: flex;
   justify-content: center;
-
 }
-.song-playing ,.song-lock, .song-unlock{
+
+.song-playing, .song-lock, .song-unlock {
   border-radius: 20px;
-  display:flex;
-  justify-content: center;
-}
-.title-playlist{
   display: flex;
   justify-content: center;
-
 }
+
+.title-playlist {
+  display: flex;
+  justify-content: center;
+}
+
 .song-lock {
   background-color: black;
   padding: 10px;
@@ -211,14 +255,13 @@ h1, h2, h3, h4, h5, h6 {
 .hide {
   display: none;
 }
-.buttons-playlist{
 
-}
+.buttons-playlist {}
+
 .buttons {
   display: flex;
   justify-content: center;
-
-  margin-left: 10px;
+  margin-right: 50px;
 }
 
 .btn {

@@ -49,20 +49,13 @@
 
               </ul>
 
-              <ul class="nav  navbar-nav navbar-right">
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-              </ul>
+
             </div>
             <!-- /.navbar-collapse -->
           </nav>
-
         </header>
         <!--/#HEADER-->
-
         <div>
-
           <div class="buttons">
             <button type="button" class="btn btn-default btn-lg" (click)="play()">
              <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
@@ -74,11 +67,11 @@
               <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
              </button>
           </div>
+<div *ngIf="artistCurrentString" class="well well-lg"  > <b>Canción Actual : </b>{{ artistCurrentString}}
 
-          <div class="input-group input-group-lg">
-            <span class="input-group-addon" id="sizing-addon1">Canción Actual :</span>
-            <input type="text" class="form-control" placeholder="{{ artistCurrentString}} " aria-describedby="sizing-addon1">
-          </div>
+</div>
+
+
           <div class="buttons-playlist">
             <div *ngIf="!coldown" class='playlist-button'>
               <h1 class="title-playlist" >Select next</h1>
@@ -87,7 +80,9 @@
 
               </div>
             </div>
-            <h2 *ngIf="coldown">Wait the next turn {{cont}}</h2>
+
+            <h1  *ngIf="coldown" class="display-2">Wait the next turn </h1>
+            <div *ngIf="coldown" class="cont"> {{cont}}</div>
               </div>
             <div class='playlist'>
               <h1 class="title-playlist"  >Playlist </h1>

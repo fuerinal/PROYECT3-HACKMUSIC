@@ -11,12 +11,12 @@ console.log("ENTRA en player PUBLIC");
 
 var headers = {
   'Accept': 'application/json',
-  'Authorization': 'Bearer BQAbMRDA2IzARK-r04dNBprv5py_9DTpTaCHw_ouemuScwuwMwm0EEGTNGtcz0xJtLEYlhXOQs9v8jdS0OZpjobqPYkitOVUn_MhJ2nP5ytNBSsz0fGmxyDYn3NI48yp9xxrx9QAnYu21GYZH7mpYCYiF9bO4vACniDNau-UBU8McENVsFfRq4TN7tCM8jGwzsu36QNOSPmnd2NfKLvt2XZaSlqqO4QTQy1sqtZA25bn-6sltGyessp2NJXUoBSTOhTb5SHCz59jrj8wgRgrz0Cd1r1GQvUvaXdl95wWh4maPfmKizMBc5nFKfDyu0sE9dn2Jg'
+  'Authorization': 'Bearer BQCtlMvS-RkZmJ-rp9YlQ79GIdefe8DCxK62nboE-QlfpDk0KYwEJY2T5xfInwa2l9d3MSM-NE1z8kyvDKsfeURK8Bic676pJ2SJ6d7G3OJVdBfTTboNGG4skOdR6_PUFyYJQznnD0xwTdgs0gWp9x0JVbhmBIXdq1sj_uvXXU96M09okbNKegHQiQdD8IlgteITAdfVFFEI6zyGiYp3ArhUOwzeGHC8_E_078d-MXbYUOm45m1UGNiZINVy4wOqHBJTvojmJh72b-0oYGG0z0HCdfsLPXKUWtIcnbDwkKNZFAPxMN48f550IPWOY5e7XhKvbw'
 };
 
 var headersOther = {
   'Accept': 'application/json',
-  'Authorization': 'Bearer BQAbMRDA2IzARK-r04dNBprv5py_9DTpTaCHw_ouemuScwuwMwm0EEGTNGtcz0xJtLEYlhXOQs9v8jdS0OZpjobqPYkitOVUn_MhJ2nP5ytNBSsz0fGmxyDYn3NI48yp9xxrx9QAnYu21GYZH7mpYCYiF9bO4vACniDNau-UBU8McENVsFfRq4TN7tCM8jGwzsu36QNOSPmnd2NfKLvt2XZaSlqqO4QTQy1sqtZA25bn-6sltGyessp2NJXUoBSTOhTb5SHCz59jrj8wgRgrz0Cd1r1GQvUvaXdl95wWh4maPfmKizMBc5nFKfDyu0sE9dn2Jg',
+  'Authorization': 'Bearer BQCtlMvS-RkZmJ-rp9YlQ79GIdefe8DCxK62nboE-QlfpDk0KYwEJY2T5xfInwa2l9d3MSM-NE1z8kyvDKsfeURK8Bic676pJ2SJ6d7G3OJVdBfTTboNGG4skOdR6_PUFyYJQznnD0xwTdgs0gWp9x0JVbhmBIXdq1sj_uvXXU96M09okbNKegHQiQdD8IlgteITAdfVFFEI6zyGiYp3ArhUOwzeGHC8_E_078d-MXbYUOm45m1UGNiZINVy4wOqHBJTvojmJh72b-0oYGG0z0HCdfsLPXKUWtIcnbDwkKNZFAPxMN48f550IPWOY5e7XhKvbw',
   'Content-Type': 'application/json'
 };
 
@@ -26,6 +26,7 @@ nextSong = function() {
     method: 'POST',
     headers: headers
   };
+
   function callback(error, response, body) {
     console.log(response);
     if (!error && response.statusCode == 200) {
@@ -41,6 +42,7 @@ previousSong = function() {
     method: 'POST',
     headers: headers
   };
+
   function callback(error, response, body) {
     console.log(response);
     if (!error && response.statusCode == 200) {
@@ -56,6 +58,7 @@ pause = function() {
     method: 'PUT',
     headers: headers
   };
+
   function callback(error, response, body) {
     console.log(response);
     if (!error && response.statusCode == 200) {
@@ -71,6 +74,7 @@ play = function() {
     method: 'PUT',
     headers: headersOther
   };
+
   function callback(error, response, body) {
     if (!error && response.statusCode == 200) {
       console.log(body);
@@ -84,6 +88,7 @@ artistCurrent = function() {
     url: 'https://api.spotify.com/v1/me/player',
     headers: headers
   };
+
   function callback(error, response, body) {
     if (!error && response.statusCode == 200) {
       // console.log(body);
@@ -93,13 +98,11 @@ artistCurrent = function() {
       }, (err, cs) => {
         if (err) return handleError(err);
         if (cs[0] === undefined) {
-          CurrentSpotify.remove(function(err, removed) {
-          });
+          CurrentSpotify.remove(function(err, removed) {});
           const newCurrentSpotify = CurrentSpotify({
             currentSong: object.item.name + " of " + object.item.album.artists[0].name
           }).save();
-        } else {
-        }
+        } else {}
       });
       artistCurrentString = object.item.album.artists[0].name;
     }
@@ -178,6 +181,7 @@ reorder = function(i) {
   if (e == playlistlenght) {
     e = 1;
   }
+
   function callback(error, response, body) {
     if (!error && response.statusCode == 200) {
       console.log(body);
@@ -202,6 +206,7 @@ setfirst = function(index) {
   if (e >= playlistlenght) {
     e = 1;
   }
+
   function callback(error, response, body) {
     if (!error && response.statusCode == 200) {
       console.log(body);
@@ -209,6 +214,24 @@ setfirst = function(index) {
   }
   request(options, callback);
   return e;
+};
+setlast = function() {
+  var playlistlenghtScope = playlistlenght - 1;
+  var request = require('request');
+  var dataString = `{"range_start":1,"range_length":1,"insert_before":${playlistlenghtScope}}`;
+  var options = {
+    url: 'https://api.spotify.com/v1/users/1126614111/playlists/4STLVHeKRhpQkBQ0xkyBL8/tracks',
+    method: 'PUT',
+    headers: headersOther,
+    body: dataString
+  };
+  function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      console.log(body);
+    }
+  }
+  request(options, callback);
+
 };
 
 
@@ -221,3 +244,4 @@ module.exports.playlistCurrent = playlistCurrent;
 module.exports.playlistdata = playlistdata;
 module.exports.reorder = reorder;
 module.exports.setfirst = setfirst;
+module.exports.setlast = setlast;

@@ -9,6 +9,7 @@ import { PlayerService } from '../../services/player.service';
 })
 export class HomeComponent implements OnInit {
   artistCurrentString: any;
+  artistCurrentStringPast: any;
   playlist: any;
   playlisttemp: any;
   playlistdataArray: any;
@@ -106,6 +107,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    
 
   }
 
