@@ -7,7 +7,7 @@ import { PlayerService } from '../services/player.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private session: SessionService) {
+  constructor(public session: SessionService) {
 
   }
   logout() {
