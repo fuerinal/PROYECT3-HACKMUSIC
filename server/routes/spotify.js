@@ -144,10 +144,19 @@ spotifyRoutes.get('/refresh', (req, res, next) => {
 spotifyRoutes.post('/setfirst', (req, res, next) => {
 
   console.log("ENTRA setfirst -> SERVER SPOTIFY");
-  m = Player.setfirst(req.body.index);
-  setTimeout(function(){ Player.setlast();  }, 2500);
-  res.status(200).json({
-    index: m
+
+  let promiseRoute = new Promise((resolve, reject) => {
+
+    resolve(m = Player.setfirst(req.body.index));
+  });
+
+  promiseRoute.then(m => {
+    Player.setlast();
+    //console.log("Artist routeeee", arrayPlaylist);
+    res.status(200).json({
+      index: m
+
+    });
   });
 
 

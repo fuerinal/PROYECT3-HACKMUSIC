@@ -11,12 +11,12 @@ console.log("ENTRA en player PUBLIC");
 
 var headers = {
   'Accept': 'application/json',
-  'Authorization': 'Bearer BQCfagA2nTAe_SMwXBXm6ESi9fRE8CZKxEyeK9y2VF2_Av0Lykr97d60LDnMGZLxUy3C-A0pGRUUUt6RWRbgP4h82oCP_9UbPjBbi-oRLsUhIKbdO0gyZnk-IaKr3YDz8nDpDg1UBE552KfVItsi79sqmGhgo7o3HZnR3zBMwvKQ3VjlM1K8b4YsbnNBd86uykhJA_TQ6aar50OfifKxwYuQ-bfekVz3BeDb_DgveyJlPyL2pV-vA7dfAiDEM1SKAv35gY2XLxxD7eLcJSSN6v-0Xjqcv5JqVJ1VShOZIwAUUlXc_cr20L0Q3N1b_YUy6Pu1_Q'
+  'Authorization': 'Bearer BQD2soHQ0NAc-9LR7BYvcW5TYRKL1zVhsA_GhV_E41fqf-kF2BVbHXnJmCUfFaXmAJ4mUF_JeRiuOIPdOjp2YrpNtsYZLMhHWQ1Wfs1b0I6MM7e1MBDPHw0PLYYUCZHIf0wCG2TZuoWFeVlOBTBzr-FAAUWQi5OxqwxfBgJh-r237tcfw_LfG-l8JfmdG7pXlmRwGT1WWx8ge2NForw2bCNCDKwrz9F8DwCuZXwYLsXZXx1h7Vy_kAVf2izXp0qio2wFj0lofq4Qu3VZ4EFYMcOxEL5iQOR3ZYZUFKVspSCujIg9b8Hl9YSlPL6MB5QjyMLfgw'
 };
 
 var headersOther = {
   'Accept': 'application/json',
-  'Authorization': 'Bearer BQCfagA2nTAe_SMwXBXm6ESi9fRE8CZKxEyeK9y2VF2_Av0Lykr97d60LDnMGZLxUy3C-A0pGRUUUt6RWRbgP4h82oCP_9UbPjBbi-oRLsUhIKbdO0gyZnk-IaKr3YDz8nDpDg1UBE552KfVItsi79sqmGhgo7o3HZnR3zBMwvKQ3VjlM1K8b4YsbnNBd86uykhJA_TQ6aar50OfifKxwYuQ-bfekVz3BeDb_DgveyJlPyL2pV-vA7dfAiDEM1SKAv35gY2XLxxD7eLcJSSN6v-0Xjqcv5JqVJ1VShOZIwAUUlXc_cr20L0Q3N1b_YUy6Pu1_Q',
+  'Authorization': 'Bearer BQD2soHQ0NAc-9LR7BYvcW5TYRKL1zVhsA_GhV_E41fqf-kF2BVbHXnJmCUfFaXmAJ4mUF_JeRiuOIPdOjp2YrpNtsYZLMhHWQ1Wfs1b0I6MM7e1MBDPHw0PLYYUCZHIf0wCG2TZuoWFeVlOBTBzr-FAAUWQi5OxqwxfBgJh-r237tcfw_LfG-l8JfmdG7pXlmRwGT1WWx8ge2NForw2bCNCDKwrz9F8DwCuZXwYLsXZXx1h7Vy_kAVf2izXp0qio2wFj0lofq4Qu3VZ4EFYMcOxEL5iQOR3ZYZUFKVspSCujIg9b8Hl9YSlPL6MB5QjyMLfgw',
   'Content-Type': 'application/json'
 };
 
@@ -192,7 +192,7 @@ reorder = function(i) {
 };
 
 setfirst = function(index) {
-  var request = require('request');
+
   console.log("jejejejejejejeje", index);
   console.log("->>>>>>>>>>>>>>", e);
   console.log(index, "setfirst i");
@@ -206,15 +206,23 @@ setfirst = function(index) {
   if (e >= playlistlenght) {
     e = 1;
   }
+  let promiseSetFirstdata = new Promise((resolve, reject) => {
+    request(options, function(error, response, body) {
+      if (!error && response.statusCode == 200) {
+        let object ;
 
-  function callback(error, response, body) {
-    if (!error && response.statusCode == 200) {
-      console.log(body);
-    }
-  }
-  request(options, callback);
-  return e;
+        resolve(object= JSON.parse(body));
+      } else {
+        reject(err => console.log('ERROR reject in promiseSetFirst promise: ', err));
+        console.log('ERROR: ', error);
+      }
+    });
+  });
+  return promiseSetFirstdata.then(array => {
+    return e;
+  });
 };
+
 setlast = function() {
   var playlistlenghtScope = playlistlenght - 1;
   var request = require('request');
