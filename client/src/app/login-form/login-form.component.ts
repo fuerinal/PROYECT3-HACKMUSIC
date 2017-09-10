@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionService } from '../../services/session.service';
+import { SpotifyUserService } from '../../services/spotify-user.service';
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
@@ -10,7 +11,7 @@ export class LoginFormComponent implements OnInit {
   username:string;
   password:string;
   bool:boolean=true;
-  constructor(private session: SessionService) { }
+  constructor(public session: SessionService,public loginSpotify: SpotifyUserService) { }
   ngOnInit() {
   }
 toggle(){
@@ -23,6 +24,13 @@ toggle(){
         (err) => this.error = err
       );
   }
+  loginWithSpotify() {
+    this.loginSpotify.login().subscribe();
+    this.loginSpotify.loginreturn().subscribe();
+
+  }
+
+
 
   signup() {
     this.session.signup(this.username, this.password)

@@ -1,96 +1,91 @@
-
-
-
-
 <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+
+
+
 <div class="wrapper">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <header id="header">
-
-          <div class="slider">
-            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-              <!-- Wrapper for slides -->
-              <div class="carousel-inner" role="listbox">
-                <div class="item">
-                  <img src="http://placehold.it/1200x400/20BFA9/ffffff&text=CLEAN">
-                </div>
-                <div class="item active">
-                  <img  src="https://ugc.kn3.net/i/origin/http://notihoy.com/site/wp-content/uploads/2015/04/1384.jpg ">
-                </div>
-
-              </div>
-
-              <!-- Controls -->
-
+        <div *ngIf="!playlistdataArray" class="preloader-wrapper big active loading">
+          <div class="spinner-layer spinner-blue">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
             </div>
           </div>
-          <!--slider-->
-          <nav class="navbar navbar-default">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainNav">
-                          <span class="sr-only">Toggle navigation</span>
-                          <span class="icon-bar"></span>
-                          <span class="icon-bar"></span>
-                          <span class="icon-bar"></span>
-                        </button>
-              <a class="navbar-brand" href="#"><img *ngIf="playlistdataArray" class="img-responsive" src="{{playlistdataArray.arrayPlaylistdata[1]}} "></a>
-              <span *ngIf="playlistdataArray" class="site-name"><b >{{ playlistdataArray.arrayPlaylistdata[0] }}</b></span>
-              <span *ngIf="playlistdataArray" class="site-description">Playlist of {{playlistdataArray.arrayPlaylistdata[2]}}</span>
+        </div>
+        <div *ngIf="playlistdataArray">
+          <div *ngIf="!playlistdataArray" class="text-center">
+            <h1>TOKEN EXPIRED</h1></div>
+            <div class="valign-wrapper center-align text-center image-playlist">
+              <div class="text-info-playlist-title" > {{ playlistdataArray.arrayPlaylistdata[0] }}</div>
             </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="mainNav">
-              <ul class="nav main-menu navbar-nav">
-                <li></li>
-
-              </ul>
-
-
-            </div>
-            <!-- /.navbar-collapse -->
-          </nav>
-        </header>
-        <!--/#HEADER-->
-        <div>
-          <div class="buttons">
-            <button type="button" class="btn btn-default btn-lg" (click)="play()">
-             <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
-             </button>
-            <button type="button" class="btn btn-default btn-lg" (click)="pause()">
-              <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
-             </button>
-            <button type="button" class="btn btn-default btn-lg" (click)="nextSong()">
-              <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
-             </button>
+          <div class="valign-wrapper center-align text-center">
+            <img class="responsive-img circle valign-wrapper center-align image-playlist z-depth-5" src="{{playlistdataArray.arrayPlaylistdata[1]}}"></div><br>
+          <div class="valign-wrapper center-align text-center">
+            <div class="text-info-playlist">  Playlist of {{playlistdataArray.arrayPlaylistdata[2]}}</div>
           </div>
-<div *ngIf="artistCurrentString" class="well well-lg"  > <b>Canción Actual : </b>{{ artistCurrentString}}
 
-</div>
+          <br>
+          <div></div>
+          <div class=" col s12 buttons">
+            <button type="button z-depth-5" class="btn btn-default btn-lg" (click)="play()">
+         <i  class="material-icons">play_arrow</i>
+         </button>
+            <button type="button z-depth-5" class="btn btn-default btn-lg" (click)="pause()">
+           <i  class="material-icons">pause</i>
+         </button>
+            <button type="button z-depth-5" class="btn btn-default btn-lg" (click)="nextSong()">
+        <i  class="material-icons">skip_next</i>
+         </button>
 
+          </div>
+          <!--/#HEADER-->
 
-          <div class="buttons-playlist">
-            <div *ngIf="!coldown" class='playlist-button'>
-              <h1 class="title-playlist" >Select next</h1>
-              <div *ngFor="let song of playlist; let i = index" [attr.data-index]="i">
-                <button class="button-playlist" *ngIf="i!==0" type="button" [ngClass]="{'hide': i<contSongs, 'btn-default':i!=0 }" class="btn" ng-show="toggle" style="background-color: gray; margin:10px;" (click)="reorder(i)" (click)="timer()" ng-click="toggle=!toggle">{{song}}</button>
+          <div *ngIf="!coldown">
+            <div *ngIf="playlistimages">
+              <div materialize=carousel class="carousel ">
+                <div *ngFor="let image of dataplaylist[1]; let i = index" [attr.data-index]="i">
+                  <div *ngIf="i>=contSongs">
 
+                    <div class="carousel-item">
+                      <div class="center-align text-song">{{playlist[i]}}</div><img class="z-depth-5" [src]="image"><button class="btn btn-floating btn-large cyan pulse button-add-list" (click)="reorder(i)" (click)="timer()" ng-click="toggle=!toggle"><i class="material-icons">format_indent_increase</i></button></div>
+                  </div>
+                </div>
               </div>
             </div>
+          </div>
+          <h1 *ngIf="coldown" class=" col s12 display-2 ">Wait the next turn </h1>
+          <div *ngIf="coldown" class="cont "> {{cont}}</div>
+          <div>
 
-            <h1  *ngIf="coldown" class="display-2">Wait the next turn </h1>
-            <div *ngIf="coldown" class="cont"> {{cont}}</div>
-              </div>
-            <div class='playlist'>
-              <h1 class="title-playlist"  >Playlist </h1>
+            <!-- <div *ngIf="artistCurrentString" class="well well-lg"> <b>Canción Actual : </b>{{ artistCurrentString}}
+
+          </div> -->
+
+
+
+
+            <ul class="collection z-depth-5">
               <div *ngFor="let song of playlist; let i = index" [attr.data-index]="i">
-                <div *ngIf="i==0" class="song-playing"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> {{song}}</div>
-                <div *ngIf="i!==0" [ngClass]="{ 'song-lock':i<=contSongs, 'song-unlock':i>=contSongs }">{{i}} {{song}} </div>
-                <!-- <div *ngIf="i>contsongs-1" style="background-color: white; padding:10px; margin:10px; display:block; margin-right:auto; color: white">{{i}} {{song}}</div> -->
-              </div>
-            </div>
+                <li class="collection-item avatar" [ngClass]="{ 'card-panel teal black white-text':i<contSongs, ' card-panel grey lighten-5':i>=contSongs, ' card-panel red accent-4':i==0 }">
+                  <img [src]="playlistimages[i]" alt="" class="circle">
+                  <span class="title">Song</span>
+                  <p>{{song}} <span *ngIf="i==0"> <br> Playing</span>
+                  </p>
+                  <div class="secondary-content"><i *ngIf="i==0" class="material-icons">play_arrow</i><i *ngIf="i>=contSongs" class="material-icons">format_indent_increase </i> <i *ngIf="i<contSongs && i!==0" class="material-icons">block</i></div>
+                </li>
 
+              </div>
+            </ul>
+
+          </div>
         </div>

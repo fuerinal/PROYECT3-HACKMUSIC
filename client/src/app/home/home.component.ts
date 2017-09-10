@@ -19,6 +19,8 @@ export class HomeComponent implements OnInit {
   view: any;
   index: any;
   contSongs: any;
+  playlistimages:any;
+  dataplaylist:any;
 
 
   constructor(private session: SessionService, private player: PlayerService) {
@@ -26,13 +28,15 @@ export class HomeComponent implements OnInit {
     setInterval(() => { this.artistCurrent(); }, 1000);
     setInterval(() => { this.playlistCurrent(); }, 1000);
     setInterval(() => { this.refresh(); }, 1000);
-    this.setfirst(0);
+
+    this.playlistdata();
 
     setInterval(() => {
+      console.log(this.contSongs);
       if (this.playlist) {
       if (this.playlist[0] !== this.artistCurrentString) { console.log("Entra index"); this.indexfirst(); }}
-    }, 1300);
-    this.playlistdata();
+    }, 3000);
+
     if (this.coldown == true) {
       this.cont = 10;
       setInterval(() => {
@@ -43,7 +47,6 @@ export class HomeComponent implements OnInit {
       }, 1500);
     }
   }
-
   logout() {
     this.session.logout().subscribe();
   }
@@ -70,21 +73,23 @@ export class HomeComponent implements OnInit {
     this.player.artistCurrent().subscribe((artistCurrent) => this.artistCurrentString = artistCurrent.artistCurrent);
   }
   playlistCurrent() {
-    this.player.playlistCurrent().subscribe((arrayPlaylist) => this.playlist = arrayPlaylist.arrayPlaylist);
+    this.player.playlistCurrent().subscribe((arrayPlaylist) => this.dataplaylist = arrayPlaylist.arrayPlaylist );
+    if(this.dataplaylist){
+    this.playlist=this.dataplaylist[0];
+    this.playlistimages=this.dataplaylist[1]
+  console.log(this.playlistimages)}
   }
   playlistdata() {
-    this.player.playlistdata().subscribe((array) => this.playlistdataArray = array);
+    this.player.playlistdata().subscribe((array) => this.playlistdataArray = array
+);
   }
   reorder(i) {
     this.view = ""
     this.coldown = true;
-
     this.player.reorder(i).subscribe((cont) => this.contSongs = cont.index);
   }
-
   setfirst(i) {
-
-    this.player.setfirst(i).subscribe((cont) => this.contSongs = cont.index);
+    this.player.setfirst(i).subscribe();
   }
   timer() {
     this.coldown = true;
@@ -99,7 +104,6 @@ export class HomeComponent implements OnInit {
       }, 1000);
     }
   }
-
   indexfirst() {
     this.index = this.playlist.indexOf(this.artistCurrentString);
     console.log(this.index);
@@ -107,7 +111,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
 
   }
 

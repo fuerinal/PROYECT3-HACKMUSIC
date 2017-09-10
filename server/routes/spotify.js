@@ -49,7 +49,7 @@ spotifyRoutes.get('/pause', (req, res, next) => {
 spotifyRoutes.get('/play', (req, res, next) => {
   console.log("ENTRA NEXTSONG -> SERVER SPOTIFY");
   Player.play();
-  Token.refreshtoken();
+
   res.status(200).json({
     message: 'Success'
   });
@@ -125,6 +125,7 @@ spotifyRoutes.get('/playlistdata', (req, res, next) => {
 });
 
 spotifyRoutes.post('/reorder', (req, res, next) => {
+  console.log("Routereorder->>>",m);
 
   console.log("ENTRA order -> SERVER SPOTIFY");
   m = Player.reorder(req.body.i);
@@ -134,6 +135,9 @@ spotifyRoutes.post('/reorder', (req, res, next) => {
 });
 
 spotifyRoutes.get('/refresh', (req, res, next) => {
+
+  m=Player.sendIndex();
+  console.log("Routerefresh->>>",m);
 
   console.log("ENTRA GET -> SERVER SPOTIFY");
   res.status(200).json({
@@ -145,19 +149,25 @@ spotifyRoutes.post('/setfirst', (req, res, next) => {
 
   console.log("ENTRA setfirst -> SERVER SPOTIFY");
 
-  let promiseRoute = new Promise((resolve, reject) => {
+  // let promiseRoute = new Promise((resolve, reject) => {
 
-    resolve(m = Player.setfirst(req.body.index));
-  });
+  // });
 
-  promiseRoute.then(m => {
-    Player.setlast();
+  // promiseRoute.then(m => {
+    console.log("RouteSetFist->>>",m);
     //console.log("Artist routeeee", arrayPlaylist);
-    res.status(200).json({
-      index: m
-
+    let setfirstdata;
+    let promiseRoute = new Promise((resolve, reject) => {
+      resolve(  setfirstdata = Player.setfirst(req.body.index));
     });
-  });
+    promiseRoute.then(setfirstdata => {
+      console.log(setfirstdata);
+      setTimeout(  Player.setlast(), 1000);
+      res.status(200).json({
+      message:"success"
+      });
+    });
+  // });
 
 
 });

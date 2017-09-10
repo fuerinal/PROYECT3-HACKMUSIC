@@ -70,7 +70,6 @@ export class PlayerService {
     console.log(i, "service");
     return this.http.post(`${this.BASE_URL}/reorder`, { i })
       .map(res => {
-
         this.cont=res.json();
         return this.cont
       })
@@ -81,8 +80,6 @@ export class PlayerService {
     return this.http.post(`${this.BASE_URL}/setfirst`, { index })
       .map(res => {
         res.json();
-        this.cont=res.json();
-        return this.cont
       })
   }
 }

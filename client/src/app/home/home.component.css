@@ -10,23 +10,24 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .container {}
-.cont{
+
+.cont {
   position: relative;
   color: red;
   font-size: 60px;
   margin-top: 0px;
-  left:46%;
+  left: 48%;
   right: 50%;
   margin-top: 0px;
 }
-.display-2{
+
+.display-2 {
   display: flex;
   justify-content: center;
   position: relative;
-  right:2%;
-
-
+  right: 2%;
 }
+
 .wrapper {}
 
 #header {
@@ -84,21 +85,35 @@ h1, h2, h3, h4, h5, h6 {
 
 .well-lg {
   width: auto;
-
   font-size: 20px;
   display: flex;
   justify-content: center;
   position: relative;
-    left: 70%;
+  left: 70%;
 }
 
 .main-menu {
   position: absolute;
   left: 190px;
 }
+.image-playlist{
+  margin-top: 10px;
+}
+.text-info-playlist{
+  font: sans-serif;
+  font-size: 17pt;
+}
+.text-info-playlist-title{
+  font: sans-serif;
+  font-size: 22pt;
+}
+.text-song{
+  font: sans-serif;
+  font-size: 12pt;
+}
 
 .well-lg {
-  position:relative;
+  position: relative;
   border: 1px;
   border-style: solid;
   border-color: black;
@@ -107,10 +122,9 @@ h1, h2, h3, h4, h5, h6 {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  top:20px;
-  left:22%;
+  top: 20px;
+  left: 22%;
   right: 20%;
-
 }
 
 .slider, .carousel {
@@ -182,7 +196,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .playlist-button {
   position: relative;
-  left:  20%;
+  left: 20%;
   right: 20%;
   margin-top: 50px;
   margin-right: 50px;
@@ -257,11 +271,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .buttons-playlist {}
-
+.text-center{
+  display: flex;
+  justify-content: center;
+}
 .buttons {
   display: flex;
   justify-content: center;
-  margin-right: 50px;
 }
 
 .btn {
@@ -283,6 +299,20 @@ h1, h2, h3, h4, h5, h6 {
   color: white;
 }
 
+.loading{
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+
+}
+
+.button-add-list {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  margin-top: -60px;
+}
+
 .img-nav {
   position: absolute;
   top: 8px;
@@ -294,4 +324,100 @@ h1, h2, h3, h4, h5, h6 {
 .navbar-text {
   margin-left: 50px;
   font-size: 20px;
+}
+
+.container1 {
+  margin: auto;
+  width: 350px;
+  height: 150px;
+  position: relative;
+  overflow: hidden;
+}
+
+.css-carousel {
+  width: 500%;
+  -webkit-animation: css-carousel 20s linear infinite;
+  -moz-animation: css-carousel 20s linear infinite;
+  -ms-animation: css-carousel 20s linear infinite;
+  animation: css-carousel 20s linear infinite;
+}
+
+.css-carousel .css-img {
+  display: inline-block;
+}
+
+.css-carousel img:not(:first-child) {
+  float: left;
+}
+
+@-webkit-keyframes css-carousel {
+  0%, 23% {
+    margin-left: 0
+  }
+  25%, 48% {
+    margin-left: -100%;
+  }
+  50%, 73% {
+    margin-left: -200%;
+  }
+  75%, 98% {
+    margin-left: -300%;
+  }
+  100% {
+    margin-left: 0;
+  }
+}
+
+@-moz-keyframes css-carousel {
+  0%, 23% {
+    margin-left: 0
+  }
+  25%, 48% {
+    margin-left: -100%;
+  }
+  50%, 73% {
+    margin-left: -200%;
+  }
+  75%, 98% {
+    margin-left: -300%;
+  }
+  100% {
+    margin-left: 0;
+  }
+}
+
+@-ms-keyframes css-carousel {
+  0%, 23% {
+    margin-left: 0
+  }
+  25%, 48% {
+    margin-left: -100%;
+  }
+  50%, 73% {
+    margin-left: -200%;
+  }
+  75%, 98% {
+    margin-left: -300%;
+  }
+  100% {
+    margin-left: 0;
+  }
+}
+
+@keyframes css-carousel {
+  0%, 23% {
+    margin-left: 0
+  }
+  25%, 48% {
+    margin-left: -100%;
+  }
+  50%, 73% {
+    margin-left: -200%;
+  }
+  75%, 98% {
+    margin-left: -300%;
+  }
+  100% {
+    margin-left: 0;
+  }
 }

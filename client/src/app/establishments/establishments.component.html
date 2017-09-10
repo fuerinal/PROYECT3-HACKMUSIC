@@ -1,16 +1,22 @@
-
-
-
-
-<div class="row">
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img *ngIf="playlistdataArray" class="img-thumbnail"  src="{{playlistdataArray.arrayPlaylistdata[1]}}" alt="" >
-      <div class="caption">
-        <h3  *ngIf="playlistdataArray" >{{playlistdataArray.arrayPlaylistdata[2]}}</h3><br>
-
-        <p><a [routerLink]="['home']" class="btn btn-primary btn-responsive" role="button">Go</a></p>
-      </div>
+<div *ngIf="!playlistdataArray" class="preloader-wrapper big active loading">
+  <div class="spinner-layer spinner-blue">
+    <div class="circle-clipper left">
+      <div class="circle"></div>
+    </div>
+    <div class="gap-patch">
+      <div class="circle"></div>
+    </div>
+    <div class="circle-clipper right">
+      <div class="circle"></div>
+    </div>
+  </div>
+</div>
+<div *ngIf="playlistdataArray" class="row ">
+  <div class="col s12 m6  l3  establishment valign-wrapper center-align">
+    <div class="card-panel grey lighten-5 z-depth-1">
+      <img class="responsive-img circle" src="{{playlistdataArray.arrayPlaylistdata[1]}}">
+      <h3 *ngIf="playlistdataArray">{{playlistdataArray.arrayPlaylistdata[2]}}</h3><br>
+      <p><a [routerLink]="['home']" class="waves-effect waves-light btn"><i class="material-icons right">cloud</i>Go</a></p>
     </div>
   </div>
 </div>

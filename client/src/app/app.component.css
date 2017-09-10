@@ -11,3 +11,9 @@ hover:navbar-link{
   font-family: sans-serif;
   font-size: 20px;
 }
+.loading{
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+
+}

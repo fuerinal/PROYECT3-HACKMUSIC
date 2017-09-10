@@ -5,23 +5,26 @@ const CurrentSpotify = require('../../models/CurrentSpotify');
 const CurrentSpotifyPlaylist = require('../../models/CurrentSpotifyPlaylist');
 
 
-var playlistlenght;
+let playlistlenght;
+let token='BQCYR-ry7piis6D77WtwW2mewDzocMZHuwLg227jNM_PjbjqzPxBeKXlUVMJk8nXDkktSZAiXItgvBS19kdVNI_Z6UFihuU9dQxY9N6y0Ex9aHIUepT6hWg67VGndgoNrcfTBaUIfqgIQU6Ohejxs5cKH7q8Pfwrww-lf5XqPL74jj_SMb_RAVQDsOTt1bBmnOHo3tiAgBRSNIZcbAxGXeGrE3hzX3dykTHw_yO5wolrBFXb-q9_UxcZBaGbUEjuArtsfNeiWskZ18h6L42KDsPod_tejqE8rl5ylGRiyV4Q5OcnX_ACBsZw1ij0qS_M87qxsQ';
 let e = 1;
+let playlist="4STLVHeKRhpQkBQ0xkyBL8";
+
 console.log("ENTRA en player PUBLIC");
 
-var headers = {
+let headers = {
   'Accept': 'application/json',
-  'Authorization': 'Bearer BQD2soHQ0NAc-9LR7BYvcW5TYRKL1zVhsA_GhV_E41fqf-kF2BVbHXnJmCUfFaXmAJ4mUF_JeRiuOIPdOjp2YrpNtsYZLMhHWQ1Wfs1b0I6MM7e1MBDPHw0PLYYUCZHIf0wCG2TZuoWFeVlOBTBzr-FAAUWQi5OxqwxfBgJh-r237tcfw_LfG-l8JfmdG7pXlmRwGT1WWx8ge2NForw2bCNCDKwrz9F8DwCuZXwYLsXZXx1h7Vy_kAVf2izXp0qio2wFj0lofq4Qu3VZ4EFYMcOxEL5iQOR3ZYZUFKVspSCujIg9b8Hl9YSlPL6MB5QjyMLfgw'
+  'Authorization': `Bearer ${token}`
 };
 
-var headersOther = {
+let headersOther = {
   'Accept': 'application/json',
-  'Authorization': 'Bearer BQD2soHQ0NAc-9LR7BYvcW5TYRKL1zVhsA_GhV_E41fqf-kF2BVbHXnJmCUfFaXmAJ4mUF_JeRiuOIPdOjp2YrpNtsYZLMhHWQ1Wfs1b0I6MM7e1MBDPHw0PLYYUCZHIf0wCG2TZuoWFeVlOBTBzr-FAAUWQi5OxqwxfBgJh-r237tcfw_LfG-l8JfmdG7pXlmRwGT1WWx8ge2NForw2bCNCDKwrz9F8DwCuZXwYLsXZXx1h7Vy_kAVf2izXp0qio2wFj0lofq4Qu3VZ4EFYMcOxEL5iQOR3ZYZUFKVspSCujIg9b8Hl9YSlPL6MB5QjyMLfgw',
+  'Authorization': `Bearer ${token}`,
   'Content-Type': 'application/json'
 };
 
 nextSong = function() {
-  var options = {
+  let options = {
     url: 'https://api.spotify.com/v1/me/player/next',
     method: 'POST',
     headers: headers
@@ -37,7 +40,7 @@ nextSong = function() {
 };
 
 previousSong = function() {
-  var options = {
+  let options = {
     url: 'https://api.spotify.com/v1/me/player/previous',
     method: 'POST',
     headers: headers
@@ -53,7 +56,7 @@ previousSong = function() {
 };
 
 pause = function() {
-  var options = {
+  let options = {
     url: 'https://api.spotify.com/v1/me/player/pause',
     method: 'PUT',
     headers: headers
@@ -69,10 +72,11 @@ pause = function() {
 };
 
 play = function() {
-  var options = {
-    url: 'https://api.spotify.com/v1/me/player/play',
-    method: 'PUT',
-    headers: headersOther
+
+  let options = {
+      url: 'https://api.spotify.com/v1/me/player/play',
+      method: 'PUT',
+      headers: headers,
   };
 
   function callback(error, response, body) {
@@ -83,7 +87,7 @@ play = function() {
   request(options, callback);
 };
 artistCurrent = function() {
-  var options = {
+  let options = {
     method: 'GET',
     url: 'https://api.spotify.com/v1/me/player',
     headers: headers
@@ -111,9 +115,9 @@ artistCurrent = function() {
 };
 
 playlistCurrent = function() {
-  var options = {
+  let options = {
     method: 'GET',
-    url: 'https://api.spotify.com/v1/users/1126614111/playlists/4STLVHeKRhpQkBQ0xkyBL8/tracks',
+    url: `https://api.spotify.com/v1/users/1126614111/playlists/${playlist}/tracks`,
     headers: headers
   };
   let promisePlaylist = new Promise((resolve, reject) => {
@@ -121,14 +125,22 @@ playlistCurrent = function() {
       if (!error && response.statusCode == 200) {
         let object = JSON.parse(body);
         let arrayName = [];
-        let arrayTrack = [];
+        let arrayTemp = [];
         let array;
+        playlistlenght = object.items.length;
         for (i = 0; i < object.items.length; i++) {
           //console.log(object.items[i].track.name + " - " + object.items[i].track.artists[0].name + " con id ", i);
           arrayName.push(object.items[i].track.name + " of " + object.items[i].track.artists[0].name);
         }
-        playlistlenght = object.items.length;
-        resolve(array = arrayName);
+        let arrayImage = [];
+
+        for (i = 0; i < object.items.length; i++) {
+          arrayImage.push(object.items[i].track.album.images[1].url);
+        }
+        arrayTemp.push(arrayName);
+        arrayTemp.push(arrayImage);
+
+        resolve(array = arrayTemp);
       } else {
         reject(err => console.log('ERROR reject in promisePlaylist promise: ', err));
         console.log('ERROR: ', error);
@@ -141,10 +153,11 @@ playlistCurrent = function() {
   });
 };
 
+
 playlistdata = function() {
-  var options = {
+  let options = {
     method: 'GET',
-    url: 'https://api.spotify.com/v1/users/1126614111/playlists/4STLVHeKRhpQkBQ0xkyBL8',
+    url: `https://api.spotify.com/v1/users/1126614111/playlists/${playlist}`,
     headers: headers
   };
   let promisePlaylistdata = new Promise((resolve, reject) => {
@@ -169,10 +182,10 @@ playlistdata = function() {
 };
 
 reorder = function(i) {
-  var request = require('request');
-  var dataString = `{"range_start":${i},"range_length":1,"insert_before":${e}}`;
-  var options = {
-    url: 'https://api.spotify.com/v1/users/1126614111/playlists/4STLVHeKRhpQkBQ0xkyBL8/tracks',
+  let request = require('request');
+  let dataString = `{"range_start":${i},"range_length":1,"insert_before":${e}}`;
+  let options = {
+    url: `https://api.spotify.com/v1/users/1126614111/playlists/${playlist}/tracks`,
     method: 'PUT',
     headers: headersOther,
     body: dataString
@@ -196,39 +209,46 @@ setfirst = function(index) {
   console.log("jejejejejejejeje", index);
   console.log("->>>>>>>>>>>>>>", e);
   console.log(index, "setfirst i");
-  var dataString = `{"range_start":${index},"range_length":1,"insert_before":0}`;
-  var options = {
-    url: 'https://api.spotify.com/v1/users/1126614111/playlists/4STLVHeKRhpQkBQ0xkyBL8/tracks',
+  let dataString = `{"range_start":${index},"range_length":1,"insert_before":0}`;
+  let options = {
+    url: `https://api.spotify.com/v1/users/1126614111/playlists/${playlist}/tracks`,
     method: 'PUT',
     headers: headersOther,
     body: dataString
   };
+  e--;
+  if (e <=0) {
+    e = 1;
+  }
   if (e >= playlistlenght) {
     e = 1;
   }
-  let promiseSetFirstdata = new Promise((resolve, reject) => {
-    request(options, function(error, response, body) {
-      if (!error && response.statusCode == 200) {
-        let object ;
 
-        resolve(object= JSON.parse(body));
-      } else {
-        reject(err => console.log('ERROR reject in promiseSetFirst promise: ', err));
-        console.log('ERROR: ', error);
-      }
+
+
+    let promisePlaylistdata = new Promise((resolve, reject) => {
+      request(options, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+          let message;
+
+          console.log(body);
+          resolve(message=body);
+        } else {
+          reject(err => console.log('ERROR reject in promisePlaylistdata promise: ', err));
+          console.log('ERROR: ', error);
+        }
+      });
     });
-  });
-  return promiseSetFirstdata.then(array => {
-    return e;
-  });
+    return promisePlaylistdata.then(message => {
+      return message;
+    });
 };
 
 setlast = function() {
-  var playlistlenghtScope = playlistlenght - 1;
-  var request = require('request');
-  var dataString = `{"range_start":1,"range_length":1,"insert_before":${playlistlenghtScope}}`;
-  var options = {
-    url: 'https://api.spotify.com/v1/users/1126614111/playlists/4STLVHeKRhpQkBQ0xkyBL8/tracks',
+  let playlistlenghtScope = playlistlenght - 1;
+  let dataString = `{"range_start":1,"range_length":1,"insert_before":${playlistlenghtScope}}`;
+  let options = {
+  url: `https://api.spotify.com/v1/users/1126614111/playlists/${playlist}/tracks`,
     method: 'PUT',
     headers: headersOther,
     body: dataString
@@ -240,6 +260,9 @@ setlast = function() {
   }
   request(options, callback);
 
+};
+sendIndex = function() {
+  return e;
 };
 
 
@@ -253,3 +276,4 @@ module.exports.playlistdata = playlistdata;
 module.exports.reorder = reorder;
 module.exports.setfirst = setfirst;
 module.exports.setlast = setlast;
+module.exports.sendIndex = sendIndex;

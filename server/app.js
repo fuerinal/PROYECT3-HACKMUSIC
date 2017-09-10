@@ -23,8 +23,6 @@ mongoose.connect(dbUrl)
 
 const app = express();
 
-
-
 var whitelist = [
     'http://localhost:4200',
 ];
@@ -55,7 +53,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(layouts);
 
 app.use(session({
-  secret: 'angular auth passport secret shh',
+  secret: 'SECRETERCES',
   resave: true,
   saveUninitialized: true,
   cookie : { httpOnly: true, maxAge: 2419200000 }
@@ -70,9 +68,10 @@ app.use(passport.session());
 
 const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
-
 const spotifyRoutes = require('./routes/spotify');
 app.use('/api/spotify', spotifyRoutes);
+const spotifyAuthRoutes = require('./routes/spotify');
+app.use('/api/spotifyauth', spotifyAuthRoutes);
 
 app.use((req, res, next) => {
   res.sendfile(__dirname + '/public/index.html');

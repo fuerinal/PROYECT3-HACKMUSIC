@@ -5,3 +5,20 @@
   display: flex;
   justify-content: center;
 }
+.establishment{
+
+  display: flex;
+  justify-content: center;
+  float: left;
+
+}
+.loading{
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+
+}
+.text-center{
+  display: flex;
+  justify-content: center;
+}

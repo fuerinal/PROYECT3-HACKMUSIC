@@ -19,7 +19,7 @@ export class SessionService {
   BASE_URL: string = `${environment.BASE_URL}/api/auth`;
   options: object = { withCredentials: true };
 
-  constructor(private http: Http) {
+  constructor(public http: Http) {
     this.isLoggedIn().subscribe((user: User) => {
       console.log(`Welcome again user ${user.username}`)
       this.user = user;

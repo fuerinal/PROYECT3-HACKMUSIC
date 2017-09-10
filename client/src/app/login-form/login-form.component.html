@@ -1,19 +1,11 @@
 
-<!-- <form>
-  <h2> Login or Signup </h2>
-  <label> Username </label>
-  <input type="text" [(ngModel)]="username" name="username" />
-  <br>
-  <label> Password </label>
-  <input type="password" [(ngModel)]="password" name="password" />
-
-  <button (click)="login()"> login </button>
-  <button (click)="signup()"> signup </button>
-</form> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <form action="">
 <div class="login-page">
   <div class="form">
-    <h1>HACKMUSIC</h1>
+    <h1>HACKMUSIC</h1><br>
     <form class="register-form">
       <input  type="text" [(ngModel)]="username" name="username"  placeholder="name"/>
       <input  type="text" [(ngModel)]="password" name="password" placeholder="password"/>
@@ -28,6 +20,8 @@
         <p class="error"> {{ error }} </p>
       <p *ngIf="bool==true"  class="message">Not registered? <a (click)="toggle()">Create an account</a></p>
       <p *ngIf="bool==false" class="message">Registered? <a  (click)="toggle()">Login</a></p>
+
+      <!-- <button style="background: url(https://trackid.sonymobile.com/assets/2017-07-05-49cd9c/images/log_in-mobile.png); width:100px;" (click)="loginWithSpotify()"></button> -->
     </form>
   </div>
 </div>
