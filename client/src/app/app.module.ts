@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SessionService } from '../services/session.service';
 import { PlayerService } from '../services/player.service';
+import { PlaylistService } from '../services/playlist.service';
 import { SpotifyUserService } from '../services/spotify-user.service';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
@@ -30,7 +31,7 @@ import { HomeUserSpotifyComponent } from './home-user-spotify/home-user-spotify.
     RouterModule.forRoot(routes),
     MaterializeModule
   ],
-  providers: [SessionService,PlayerService,SpotifyUserService],
+  providers: [SessionService,PlayerService,PlaylistService,SpotifyUserService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

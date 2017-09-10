@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PlayerService } from '../../services/player.service';
+import { PlaylistService } from '../../services/playlist.service';
 
 @Component({
   selector: 'app-establishments',
@@ -8,13 +8,13 @@ import { PlayerService } from '../../services/player.service';
 })
 export class EstablishmentsComponent implements OnInit {
 playlistdataArray :any;
-  constructor(private player: PlayerService) {
+  constructor(private playlist: PlaylistService) {
     this.playlistdata();
   }
 
   ngOnInit() {
   }
   playlistdata() {
-      this.player.playlistdata().subscribe((array) => this.playlistdataArray = array);
+      this.playlist.playlistdata().subscribe((array) => this.playlistdataArray = array);
   }
 }

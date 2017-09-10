@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionService } from '../../services/session.service';
 import { PlayerService } from '../../services/player.service';
+import { PlaylistService } from '../../services/playlist.service';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,7 @@ export class HomeComponent implements OnInit {
   dataplaylist:any;
 
 
-  constructor(private session: SessionService, private player: PlayerService) {
+  constructor(private session: SessionService, private player: PlayerService,private playlistcontrol: PlaylistService) {
 
     setInterval(() => { this.artistCurrent(); }, 1000);
     setInterval(() => { this.playlistCurrent(); }, 1000);
@@ -67,29 +68,29 @@ export class HomeComponent implements OnInit {
     this.player.play().subscribe();
   }
   refresh() {
-    this.player.refresh().subscribe((cont) => this.contSongs = cont.index);
+    this.playlistcontrol.refresh().subscribe((cont) => this.contSongs = cont.index);
   }
   artistCurrent() {
-    this.player.artistCurrent().subscribe((artistCurrent) => this.artistCurrentString = artistCurrent.artistCurrent);
+    this.playlistcontrol.artistCurrent().subscribe((artistCurrent) => this.artistCurrentString = artistCurrent.artistCurrent);
   }
   playlistCurrent() {
-    this.player.playlistCurrent().subscribe((arrayPlaylist) => this.dataplaylist = arrayPlaylist.arrayPlaylist );
+    this.playlistcontrol.playlistCurrent().subscribe((arrayPlaylist) => this.dataplaylist = arrayPlaylist.arrayPlaylist );
     if(this.dataplaylist){
     this.playlist=this.dataplaylist[0];
     this.playlistimages=this.dataplaylist[1]
   console.log(this.playlistimages)}
   }
   playlistdata() {
-    this.player.playlistdata().subscribe((array) => this.playlistdataArray = array
+    this.playlistcontrol.playlistdata().subscribe((array) => this.playlistdataArray = array
 );
   }
   reorder(i) {
     this.view = ""
     this.coldown = true;
-    this.player.reorder(i).subscribe((cont) => this.contSongs = cont.index);
+    this.playlistcontrol.reorder(i).subscribe((cont) => this.contSongs = cont.index);
   }
   setfirst(i) {
-    this.player.setfirst(i).subscribe();
+    this.playlistcontrol.setfirst(i).subscribe();
   }
   timer() {
     this.coldown = true;

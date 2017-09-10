@@ -13,12 +13,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .cont {
   position: relative;
+  font-size: 30pt;
   color: red;
-  font-size: 60px;
-  margin-top: 0px;
   left: 48%;
   right: 50%;
   margin-top: 0px;
+  margin-bottom: 10pt;
 }
 
 .display-2 {
@@ -105,11 +105,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 .text-info-playlist-title{
   font: sans-serif;
+  font-weight: bold;
   font-size: 22pt;
+  margin-top: 10pt;
 }
 .text-song{
   font: sans-serif;
   font-size: 12pt;
+  font-style: italic;
 }
 
 .well-lg {

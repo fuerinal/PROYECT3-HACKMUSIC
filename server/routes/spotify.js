@@ -7,6 +7,7 @@ let m;
 
 // Our user model
 const User = require('../models/User');
+const Playlist = require('../public/scripts/playlist.js');
 const Player = require('../public/scripts/player.js');
 const Token = require('../public/scripts/refreshtoken.js');
 const spotifyRoutes = express.Router();
@@ -57,7 +58,7 @@ spotifyRoutes.get('/play', (req, res, next) => {
 
 spotifyRoutes.get('/artistCurrent', (req, res, next) => {
 
-  Player.artistCurrent();
+  Playlist.artistCurrent();
 
   CurrentSpotify.find({
 
@@ -88,7 +89,7 @@ spotifyRoutes.get('/artistCurrent', (req, res, next) => {
     }
   });
 
-  // console.log("EN LA RUTA DE ARTIS CURRENT",Player.artistCurrentCurrent());
+  // console.log("EN LA RUTA DE ARTIS CURRENT",Playlist.artistCurrentCurrent());
 
 });
 
@@ -98,7 +99,7 @@ spotifyRoutes.get('/playlistCurrent', (req, res, next) => {
   let arrayPlaylist;
   let promiseRoute = new Promise((resolve, reject) => {
 
-    resolve(arrayPlaylist = Player.playlistCurrent());
+    resolve(arrayPlaylist = Playlist.playlistCurrent());
   });
   promiseRoute.then(arrayPlaylist => {
     //console.log("Artist routeeee", arrayPlaylist);
@@ -113,7 +114,7 @@ spotifyRoutes.get('/playlistdata', (req, res, next) => {
   let arrayPlaylistdata;
   let promiseRoute = new Promise((resolve, reject) => {
 
-    resolve(arrayPlaylistdata = Player.playlistdata());
+    resolve(arrayPlaylistdata = Playlist.playlistdata());
   });
   promiseRoute.then(arrayPlaylistdata => {
     //console.log("Artist routeeee", arrayPlaylist);
@@ -128,7 +129,7 @@ spotifyRoutes.post('/reorder', (req, res, next) => {
   console.log("Routereorder->>>",m);
 
   console.log("ENTRA order -> SERVER SPOTIFY");
-  m = Player.reorder(req.body.i);
+  m = Playlist.reorder(req.body.i);
   res.status(200).json({
     index: m
   });
@@ -136,7 +137,7 @@ spotifyRoutes.post('/reorder', (req, res, next) => {
 
 spotifyRoutes.get('/refresh', (req, res, next) => {
 
-  m=Player.sendIndex();
+  m=Playlist.sendIndex();
   console.log("Routerefresh->>>",m);
 
   console.log("ENTRA GET -> SERVER SPOTIFY");
@@ -158,11 +159,11 @@ spotifyRoutes.post('/setfirst', (req, res, next) => {
     //console.log("Artist routeeee", arrayPlaylist);
     let setfirstdata;
     let promiseRoute = new Promise((resolve, reject) => {
-      resolve(  setfirstdata = Player.setfirst(req.body.index));
+      resolve(  setfirstdata = Playlist.setfirst(req.body.index));
     });
     promiseRoute.then(setfirstdata => {
       console.log(setfirstdata);
-      setTimeout(  Player.setlast(), 1000);
+      setTimeout(  Playlist.setlast(), 1000);
       res.status(200).json({
       message:"success"
       });
@@ -175,7 +176,7 @@ spotifyRoutes.post('/setfirst', (req, res, next) => {
 
 
 
-// console.log("EN LA RUTA DE ARTIS CURRENT",Player.artistCurrentCurrent());
+// console.log("EN LA RUTA DE ARTIS CURRENT",Playlist.artistCurrentCurrent());
 
 
 module.exports = spotifyRoutes;
