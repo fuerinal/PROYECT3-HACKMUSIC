@@ -1,43 +1,21 @@
-<!-- Latest compiled and minified CSS -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
-<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<!-- Optional theme -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
 
-<!-- Latest compiled and minified JavaScript -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 
 <app-login-form *ngIf="!session.user && session.startLoginCompleted"></app-login-form>
 
 
 <div *ngIf="session.user && session.startLoginCompleted">
+  <nav class="teal lighten-2">
+    <div class="nav-wrapper">
+      <a [routerLink]="['']" class="brand-logo"><i class="material-icons right">apps</i><span class="nav-title">{{ session.user.name }}</span></a>
+      <ul class="right show-on-medium-and-down">
 
+        <li><a (click)="logout()" (click)="destroySession(session.user)"><i class="material-icons left">cloud_off</i>Log out</a></li>
 
-  <!-- <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">
-
-
-
-      </a>
-
+      </ul>
     </div>
-  <a  [routerLink]="['']"><img src="http://findicons.com/files/icons/1580/devine_icons_part_2/128/home.png" width="40"></a>
-      <p class="navbar-text navbar-right">Signed in as <a class="navbar-link">{{session.user.username}}   <button (click)="logout()" (click)="destroySession(session.user)">Logout</button></a></p>
-  </div>
-
-
-</nav> -->
-<nav class="teal lighten-2">
-  <div class="nav-wrapper">
-    <a [routerLink]="['']"class="brand-logo"><i class="material-icons right">apps</i></a>
-    <ul class="right show-on-medium-and-down">
-      <li><a (click)="logout()" (click)="destroySession(session.user)"><i class="material-icons left">cloud_off</i>Log out</a></li>
-
-    </ul>
-  </div>
-</nav>
+  </nav>
   <router-outlet></router-outlet>
 
   <!-- <pre>{{ session.user | json }}</pre> -->

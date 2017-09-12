@@ -6,7 +6,7 @@ const CurrentSpotifyPlaylist = require('../../models/CurrentSpotifyPlaylist');
 
 
 let playlistlenght;
-let token='BQAxsKiE0sZuKY-5XLmRWeVPeO3U2bNhxAhao6YTJQ_e4Mz9H3CWpgnezVH4l4BqR9EpSTLemvHknke6OSCDhmmwWTD4RBez-W05E2r0MFj3LLw5OgcIHhFWfQKfmuniYRlg2F9LCi2kPmB-CGjnu_doepJqLbUSbmQTOFa1xF7FPUmiyisjtpi6liokmlB55DHH8aS4LWfdO3e278T9q1Pw85U4m9XPIh__k0lXZlFu-_IW9re4XpIta-em5pK5FX-1MrcX1RJEq6RxjzWQnl7LCygjajDH6C83f4ICeP6DQ-mZgo9mtP9YeoVJDxKHnV63vw';
+let token='BQA7leadIAZZf6sIIenlKZ1oU-lU6vLnIng_Zc7F_MuWXsUMm2_L9QMxcaOwJ_sLtkJSMyt5DaRcp1mmLMChQtWFV_C3DEKEtPbEDFQIABh82KyWHwBe0wY6kGNvb6oeWHmzcIMIW4Z2NGTCIax4ly7zTntZpAn9TFV4_qXEfO3G1gUAXsV8yLb3KZjT6OaHJqCPGl85BAXmnpWMxRsvqq0XVyUdyEw8gEvMxjxoLG4K-rIPvPiA8YJ92Kfv6n9x4Wr78kmanhujKmvDxRCRhO6aCeqDcf2rQWNoyWkowB2g_sYh_R_6WCNc8L1izQqIEpolJw';
 let e = 1;
 let playlist="4STLVHeKRhpQkBQ0xkyBL8";
 
@@ -30,7 +30,6 @@ artistCurrent = function() {
     url: 'https://api.spotify.com/v1/me/player',
     headers: headers
   };
-
   function callback(error, response, body) {
     if (!error && response.statusCode == 200) {
       // console.log(body);
@@ -90,7 +89,6 @@ playlistCurrent = function() {
     return array;
   });
 };
-
 
 playlistdata = function() {
   let options = {

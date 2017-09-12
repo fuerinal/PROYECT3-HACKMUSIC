@@ -1,9 +1,7 @@
 <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-
-
 
 
 <div class="wrapper">
@@ -12,31 +10,36 @@
       <div class="col-md-12">
         <div *ngIf="!playlistdataArray" class="preloader-wrapper big active loading">
           <div class="spinner-layer spinner-blue">
+
             <div class="circle-clipper left">
               <div class="circle"></div>
             </div>
             <div class="gap-patch">
               <div class="circle"></div>
             </div>
+
             <div class="circle-clipper right">
               <div class="circle"></div>
             </div>
+
           </div>
         </div>
+
         <div *ngIf="playlistdataArray">
+
           <div *ngIf="!playlistdataArray" class="text-center">
             <h1>TOKEN EXPIRED</h1></div>
-            <div class="valign-wrapper center-align text-center image-playlist">
-              <div class="text-info-playlist-title" > {{ playlistdataArray.arrayPlaylistdata[0] }}</div>
-            </div>
+          <div class="valign-wrapper center-align text-center image-playlist">
+            <div class="text-info-playlist-title"> {{ playlistdataArray.arrayPlaylistdata[0] }}</div>
+          </div>
           <div class="valign-wrapper center-align text-center">
             <img class="responsive-img circle valign-wrapper center-align image-playlist z-depth-5" src="{{playlistdataArray.arrayPlaylistdata[1]}}"></div><br>
           <div class="valign-wrapper center-align text-center">
-            <div class="text-info-playlist">  Playlist of {{playlistdataArray.arrayPlaylistdata[2]}}</div>
+            <div class="text-info-playlist"> Playlist of {{playlistdataArray.arrayPlaylistdata[2]}}</div>
           </div>
 
           <br>
-          <div></div>
+
           <div class=" col s12 buttons">
             <button type="button z-depth-5" class="btn btn-default btn-lg" (click)="play()">
          <i  class="material-icons">play_arrow</i>
@@ -47,13 +50,11 @@
             <button type="button z-depth-5" class="btn btn-default btn-lg" (click)="nextSong()">
         <i  class="material-icons">skip_next</i>
          </button>
-
           </div>
-          <!--/#HEADER-->
 
           <div *ngIf="!coldown">
             <div *ngIf="playlistimages">
-              <div materialize=carousel class="carousel ">
+              <div materialize=carousel class="carousel show-on-medium-and-down">
                 <div *ngFor="let image of dataplaylist[1]; let i = index" [attr.data-index]="i">
                   <div *ngIf="i>=contSongs">
 
@@ -66,27 +67,19 @@
           </div>
           <h1 *ngIf="coldown" class=" col s12 display-2 ">Wait the next turn </h1>
           <div *ngIf="coldown" class="cont btn btn-floating btn-large black pulse"> {{cont}}</div>
+
           <div>
-
-            <!-- <div *ngIf="artistCurrentString" class="well well-lg"> <b>Canción Actual : </b>{{ artistCurrentString}}
-
-          </div> -->
-
-
-
-
             <ul class="collection z-depth-5">
               <div *ngFor="let song of playlist; let i = index" [attr.data-index]="i">
                 <li class="collection-item avatar" [ngClass]="{ 'card-panel teal black white-text':i<contSongs, ' card-panel grey lighten-5':i>=contSongs, ' card-panel red accent-4':i==0 }">
                   <img [src]="playlistimages[i]" alt="" class="circle">
-                  <span class="title">Song</span>
+                  <span class="title"></span>
                   <p>{{song}} <span *ngIf="i==0"> <br> Playing</span>
                   </p>
                   <div class="secondary-content"><i *ngIf="i==0" class="material-icons">play_arrow</i><i *ngIf="i>=contSongs" class="material-icons">format_indent_increase </i> <i *ngIf="i<contSongs && i!==0" class="material-icons">block</i></div>
                 </li>
-
               </div>
             </ul>
-
           </div>
+
         </div>
