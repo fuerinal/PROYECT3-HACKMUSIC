@@ -6,9 +6,9 @@ const CurrentSpotifyPlaylist = require('../../models/CurrentSpotifyPlaylist');
 
 
 let playlistlenght;
-let token='BQA7leadIAZZf6sIIenlKZ1oU-lU6vLnIng_Zc7F_MuWXsUMm2_L9QMxcaOwJ_sLtkJSMyt5DaRcp1mmLMChQtWFV_C3DEKEtPbEDFQIABh82KyWHwBe0wY6kGNvb6oeWHmzcIMIW4Z2NGTCIax4ly7zTntZpAn9TFV4_qXEfO3G1gUAXsV8yLb3KZjT6OaHJqCPGl85BAXmnpWMxRsvqq0XVyUdyEw8gEvMxjxoLG4K-rIPvPiA8YJ92Kfv6n9x4Wr78kmanhujKmvDxRCRhO6aCeqDcf2rQWNoyWkowB2g_sYh_R_6WCNc8L1izQqIEpolJw';
+let token='token';
 let e = 1;
-let playlist="4STLVHeKRhpQkBQ0xkyBL8";
+let playlist="playlist";
 
 console.log("ENTRA en player PUBLIC");
 

@@ -57,7 +57,6 @@
               <div materialize=carousel class="carousel show-on-medium-and-down">
                 <div *ngFor="let image of dataplaylist[1]; let i = index" [attr.data-index]="i">
                   <div *ngIf="i>=contSongs">
-
                     <div class="carousel-item">
                       <div class="center-align text-song">{{playlist[i]}}</div><img class="z-depth-5" [src]="image"><button class="btn btn-floating btn-large cyan pulse button-add-list" (click)="reorder(i)" (click)="timer()" ng-click="toggle=!toggle"><i class="material-icons">format_indent_increase</i></button></div>
                   </div>
