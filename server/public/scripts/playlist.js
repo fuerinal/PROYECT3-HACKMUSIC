@@ -6,9 +6,9 @@ const CurrentSpotifyPlaylist = require('../../models/CurrentSpotifyPlaylist');
 
 
 let playlistlenght;
-let token='token';
+let token='BQAL1-XiKdfR8nxzIe14JwmH06vRHHXtNy8ROXaJah7r3dgPsTCHmEMXVUCTc61RYTJN17yorTRTMDa9QzA50Pf5TX8_Qo4Hbv2v5OwdwJr3Z9eA3U-5I6go5r2cz5Top2oyS8vSCdb-HyluCMHvtVp-7VClFocK_Hxpj_KQciC29A9CLrodZzHaTmiD12vwRBsWPv7vrdakFn0wcV2Rc_RFlr2B_fkQvFZ1u9Fd71IOizKpuD8XNDogmqT4Hgajn_HSFHvloHYLK6VWxNZOyuThtDdUI8UXU3OqX5mSgWKp-ibd6iWFHyfuBNXm7FFiXnPCzA';
 let e = 1;
-let playlist="playlist";
+let playlist="4STLVHeKRhpQkBQ0xkyBL8";
 
 console.log("ENTRA en player PUBLIC");
 
@@ -142,7 +142,7 @@ reorder = function(i) {
 
 setfirst = function(index) {
 
-  console.log("jejejejejejejeje", index);
+  console.log("index", index);
   console.log("->>>>>>>>>>>>>>", e);
   console.log(index, "setfirst i");
   let dataString = `{"range_start":${index},"range_length":1,"insert_before":0}`;
