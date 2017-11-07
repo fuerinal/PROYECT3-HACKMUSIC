@@ -1,6 +1,6 @@
 HACKMUSIC
 
-## App "Juke Box" funcionality for an establishment with spotify APi
+## App "Juke Box" funcionality for an establishment with spotify API
 
 
 ![picture](Screenshots/establishments.PNG)
